@@ -1,47 +1,54 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const db = require('../config/database'); // Ensure you have your database connection setup
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const mysql = require('mysql2/promise');
+const authenticateToken = require('../middleware/auth'); // Adjust the path as needed
 
-router.post('/reset-password', async (req, res) => {
-  const { 'old-password': oldPassword, 'new-password': newPassword, 'confirm-password': confirmPassword } = req.body;
+// Create a connection pool to the MySQL database
+const db = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '12345',
+  database: 'Admin3'
+});
 
-  // Assuming the session or token contains the logged-in user's username
-  const username = req.session.username || req.body.username; // Adjust this depending on how you're getting the username
+// Handle reset password form submission
+router.post('/reset-password', authenticateToken, async (req, res) => {
+  const { old_password, new_password, confirm_password } = req.body;
 
   try {
-    // Fetch the user's current password from the database
-    const [user] = await db.promise().query('SELECT password FROM tblLogin WHERE username = ?', [username]);
-
-    if (!user.length) {
-      return res.status(404).send('User not found');
+    // Check if all fields are filled
+    if (!old_password || !new_password || !confirm_password) {
+      return res.render('reset-password', { errorMessage: 'All fields are required.' });
     }
 
-    const hashedOldPassword = user[0].password;
+    // Fetch the current admin's data
+    const [adminRows] = await db.execute('SELECT * FROM admins WHERE id = ?', [req.admin.id]);
+    const admin = adminRows[0];
 
-    // Compare the old password with the hashed password in the database
-    const isMatch = await bcrypt.compare(oldPassword, hashedOldPassword);
-
-    if (!isMatch) {
-      return res.status(400).send('Old password is incorrect');
+    // Validate old password
+    const isOldPasswordValid = await bcrypt.compare(old_password, admin.password);
+    if (!isOldPasswordValid) {
+      return res.render('reset-password', { errorMessage: 'Old password is incorrect.' });
     }
 
     // Check if new password and confirm password match
-    if (newPassword !== confirmPassword) {
-      return res.status(400).send('New password and confirm password do not match');
+    if (new_password !== confirm_password) {
+      return res.render('reset-password', { errorMessage: 'New password and confirmation do not match.' });
     }
 
     // Hash the new password
-    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    const hashedNewPassword = await bcrypt.hash(new_password, 10);
 
-    // Update the user's password in the database
-    await db.promise().query('UPDATE tblLogin SET password = ? WHERE username = ?', [hashedNewPassword, username]);
+    // Update the password in the database
+    await db.execute('UPDATE admins SET password = ? WHERE id = ?', [hashedNewPassword, req.admin.id]);
 
-    // Redirect to the login page after successful password reset
-    res.redirect('/login');
+    console.log('Password reset successfully');
+    res.redirect('/login'); // Redirect to login after successful reset
+
   } catch (error) {
     console.error('Error resetting password:', error);
-    res.status(500).send('Internal Server Error');
+    res.render('reset-password', { errorMessage: 'Server error' });
   }
 });
 

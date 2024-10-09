@@ -279,33 +279,33 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-            <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-                <!-- Profile Update Form -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                          <br>
-                            <h4 class="card-title">Reset Password</h4>
-                            <br>
-                              <form action="/reset-password" method="POST" enctype="multipart/form-data">
-                                <div class="form-group input-rounded">
-                                   <input type="password" class="form-control" placeholder="Enter your Old password" id="old-password" name="old-password" required>
-                                   <br>
-                               <div class="form-group input-rounded">
-                                   <input type="password" class="form-control" placeholder="Enter your new password" id="new-password" name="new-password" required>
-                               </div>
-                           
-                               <div class="form-group input-rounded">
-                                   <input type="password" class="form-control" placeholder="Confirm your new password" id="confirm-password" name="confirm-password" required>
-                               </div>
-                               <!-- Submit button inside the form -->
-                               <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
-                           </form>
-                           
-                        </div>
+          <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <br>
+                        <h4 class="card-title">Reset Password</h4>
+                        <br>
+                        <form action="/reset-password" method="POST">
+                            <div class="form-group input-rounded">
+                                <input type="password" class="form-control" placeholder="Enter your Old password" id="old_password" name="old_password" required>
+                            </div>
+                            <div class="form-group input-rounded">
+                                <input type="password" class="form-control" placeholder="Enter your new password" id="new_password" name="new_password" required>
+                            </div>
+                            <div class="form-group input-rounded">
+                                <input type="password" class="form-control" placeholder="Confirm your new password" id="confirm_password" name="confirm_password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                        </form>
+                        <% if (typeof errorMessage !== 'undefined') { %>
+                            <div class="alert alert-danger"><%= errorMessage %></div>
+                        <% } %>
                     </div>
                 </div>
             </div>
+        </div>
+        
         
     
     

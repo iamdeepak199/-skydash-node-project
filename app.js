@@ -3,8 +3,11 @@ const mysql = require('mysql2/promise'); // MySQL connection using promises
 const routes = require('./routes/routes'); // Import your routes
 const cookieParser = require('cookie-parser');
 const path = require('path');
-
+const session = require('express-session'); // Make sure to include this line
 const app = express();
+
+
+
 
 // Set the static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -14,6 +17,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(cookieParser()); // Use cookie-parser middleware
+
+
+
+// Configure the session middleware
+app.use(session({
+  secret: 'buralareskidenhepdutluktu', // Replace with your own secret
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
+
 
 // Routes
 app.use('/', routes); // Mount your routes
@@ -94,6 +108,29 @@ app.post('/update-row', (req, res) => {
   });
 });
 
+
+
+
+/*-----------------------------------------------------------------------------------------------
+app.post('/your-endpoint', (req, res) => {
+  const { id, updated_date } = req.body;
+
+  // Assuming you have a MySQL connection set up
+  const sql = 'UPDATE consultation_log SET updated_date = ? WHERE id = ?';
+  db.query(sql, [updated_date, id], (err, result) => {
+    if (err) {
+      console.error('Error updating date:', err);
+      return res.status(500).send('Database error');
+    }
+    console.log('Date updated successfully');
+    res.redirect('/your-redirect-path'); // Redirect back to your page after updating
+  });
+});
+---------------------------------------------------------------------------------------------------*/
+
+// Inside app.js or server.js
+const resetPasswordRoute = require('./routes/resetpassword'); // Adjust path as needed
+app.use('/', resetPasswordRoute); // Register the route
 
 
 

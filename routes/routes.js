@@ -26,7 +26,12 @@ router.get('/register', (req, res) => {
 
 // Handle registration form submission
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
+
+  // Validate required fields
+  if (!username || !email || !password) {
+    return res.render('register', { errorMessage: 'All fields are required' });
+  }
 
   try {
     // Check if email already exists in the database
@@ -45,8 +50,8 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert the new admin into the database
-    const query = 'INSERT INTO admins (name, email, password) VALUES (?, ?, ?)';
-    await db.execute(query, [name, email, hashedPassword]);
+    const query = 'INSERT INTO admins (username, email, password) VALUES (?, ?, ?)';
+    await db.execute(query, [username, email, hashedPassword]);
 
     console.log('Admin registered successfully');
     res.redirect('/login');
@@ -63,12 +68,13 @@ router.get('/login', (req, res) => {
 
 // Handle login form submission
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body; // Change email to username
 
   try {
-    // Check if the admin exists in the database
-    const [adminRows] = await db.execute('SELECT * FROM admins WHERE email = ?', [email]);
+    // Check if the admin exists in the database using username
+    const [adminRows] = await db.execute('SELECT * FROM admins WHERE username = ?', [username]);
     const admin = adminRows[0];
+
     if (!admin) {
       return res.render('login', { errorMessage: 'Admin not found' });
     }
@@ -99,10 +105,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
 // Display dashboard after login
 router.get('/dashboard', authenticateToken, async (req, res) => {
   try {
-    const [adminRows] = await db.execute('SELECT id, name, email FROM admins WHERE id = ?', [req.admin.id]);
+    const [adminRows] = await db.execute('SELECT id, username, email FROM admins WHERE id = ?', [req.admin.id]);
     const admin = adminRows[0];
 
     if (!admin) {
@@ -119,7 +126,7 @@ router.get('/dashboard', authenticateToken, async (req, res) => {
 // Display profile page
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
-    const [adminRows] = await db.execute('SELECT id, name, email, bio, picture FROM admins WHERE id = ?', [req.admin.id]);
+    const [adminRows] = await db.execute('SELECT id, username, email, bio, picture FROM admins WHERE id = ?', [req.admin.id]);
     const admin = adminRows[0];
 
     if (!admin) {
@@ -136,16 +143,23 @@ router.get('/profile', authenticateToken, async (req, res) => {
 // POST route to handle profile updates
 router.post('/profile', authenticateToken, upload.single('picture'), async (req, res) => {
   try {
-    const { name, bio } = req.body;
+    const { username, bio } = req.body;
+
+    // Check if the username or bio is empty
+    if (!username) {
+      return res.render('profile', { errorMessage: 'Username is required' });
+    }
+
     const picture = req.file ? '/images/' + req.file.filename : null;
 
-    const query = 'UPDATE admins SET name = ?, bio = ?, picture = ? WHERE id = ?';
-    await db.execute(query, [name, bio, picture, req.admin.id]);
+    // Update query corrected to use username
+    const query = 'UPDATE admins SET username = ?, bio = ?, picture = ? WHERE id = ?';
+    await db.execute(query, [username, bio, picture, req.admin.id]);
 
-    res.render('profile', { successMessage: 'Profile updated successfully' });
+    res.render('profile', { successMessage: 'Profile updated successfully', admin: { ...req.admin, username, bio, picture } });
   } catch (error) {
     console.error('Error updating admin profile:', error);
-    res.status(500).send('Server error');
+    res.render('profile', { errorMessage: 'Server error' });
   }
 });
 

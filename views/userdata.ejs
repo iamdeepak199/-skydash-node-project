@@ -375,9 +375,11 @@
                                 <td data-field-name="level"><%= log.level %></td>
                                 <td data-field-name="status"><%= log.status %></td>
                                 <td><%= log.created_date %></td>
-                                <td><%= log.updated_date %></td>
+                                <td><input type="date" value="<%= log.updated_date ? log.updated_date.toISOString().substring(0, 10) : '' %>" /></td>
+
+
                                 <td>
-                                <form action="/your-endpoint" method="GET" style="display:inline;">
+                                <form action="/your-endpoint" method="post" style="display:inline;">
                                   <input type="hidden" name="id" value="<%= log.id %>">
                                   <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                                 </form>
