@@ -1,0 +1,170 @@
+/* Reset some default browser styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: .1px;
+    background-color: #f4f4f4;
+  }
+  
+  /* Style the table */
+  table {
+    width: 30%;
+    border-collapse: collapse;
+    margin: 60px 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .custom{
+    background-color: #ff4d4d; /* Light red color */
+    color: white; /* Text color */
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+   td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #d1e7dd; /* Light green on hover */
+  }
+  
+  /* Style the buttons */
+  .button {
+    background-color: #008CBA; /* Blue background for buttons */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .button:hover {
+    background-color: #005f73; /* Darker blue on hover */
+  }
+  
+  /* Style the edit form (modal) */
+  #editForm {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Initially hidden */
+    z-index: 1000;
+  }
+  
+  #editForm h3 {
+    margin-top: 0;
+  }
+  
+  #editForm input {
+    width: calc(100% - 22px); /* Full width minus padding */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Overlay to darken background when modal is open */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Initially hidden */
+    z-index: 999;
+  }
+  
+  /* Show modal and overlay when activated */
+  .modal-active {
+    display: block;
+  }
+  
+  .pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  .pagination button {
+    margin-right: 10px; /* Adjust as needed */
+  }
+  .pagination button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .pagination button:disabled {
+    background-color: #d3d3d3; /* Grey background for disabled button */
+    color: #7a7a7a; /* Grey text */
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333; /* Dark text for the page number display */
+  }
+  
+  
+  .scrollable-table {
+    overflow-x: auto;    /* Allow horizontal scrolling */
+    display: block;      /* Make it a block-level container */
+    border: 1px solid #ccc; /* Optional: Add a border for visibility */
+    width: 100%;         /* Set width to 100% of the parent */
+    max-width: 100%;     /* Prevent exceeding parent width */
+  }
+  
+  table {
+    border-collapse: collapse; /* Merge table borders */
+    width: 100%;               /* Make table width 100% */
+    min-width: 800px;          /* Set a minimum width for scrolling */
+  }
+  
+  th, td {
+    padding: 10px;            /* Add padding for table cells */
+    text-align: left;         /* Align text to the left */
+    border: 1px solid #ccc;   /* Add border for table cells */
+  }
+  
+  /* Additional styling for buttons */
+  .btn {
+    padding: 5px 10px;        /* Adjust button padding */
+    margin: 2px;              /* Add some margin */
+    cursor: pointer;           /* Change cursor to pointer */
+  }
+  
+  
+  
+  
