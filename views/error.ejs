@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Error</title>
+    <link rel="stylesheet" href="/styleserror.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <form id="application-form">
+        <h1>404 Error!</h1>
+        <div class="container">
+            <img src="/dribbble_1.gif" alt="Error Image">
+        </div>
+        <h2>Looks like you’re lost</h2>
+        <h4>The page you are looking for is not available!</h4>
+       
+        <button type="button" onclick="goBack()">
+            <i class="fas fa-undo"></i>Back
+        </button>
+    </form>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -1,10 +1,12 @@
 {
   "name": "admin-3",
   "version": "1.0.0",
-  "description": "Admin project ",
+  "description": "Admin project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",     
+    "dev": "nodemon app.js"     
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "chalk": "^4.1.2",
     "connect": "^3.7.0",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.10",
@@ -26,5 +29,8 @@
     "port": "^0.8.1",
     "session": "^0.1.0",
     "use": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
