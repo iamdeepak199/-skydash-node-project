@@ -1,20 +1,28 @@
-const mysql = require('mysql');
+// database.js
+const mysql = require('mysql2/promise');
+const chalk = require('chalk');
 
-// Create a connection to the database
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '12345',
-    database: 'admin3'
-});
+let db; // Declare db variable
 
-// Connect to the database
-db.connect((err) => {
-    if (err) {
+async function connectToDatabase() {
+    try {
+        db = await mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: '12345',
+            database: 'users',
+        });
+        console.log(chalk.blue.italic.inverse('Connected to the MySQL database........'));
+    } catch (err) {
         console.error('Error connecting to the database:', err);
-        return;
+        process.exit(1); // Exit the process if the connection fails
     }
-    console.log('Connected to the MySQL database.');
-});
+}
 
-module.exports = db;
+// Initialize database connection
+connectToDatabase();
+
+// Export a function to get the db connection
+module.exports = function getDb() {
+    return db; // Return the db connection
+};

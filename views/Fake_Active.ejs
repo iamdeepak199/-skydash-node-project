@@ -380,10 +380,20 @@
                           <tr>
                             <th>Sr</th>
                             <th>User ID</th>
-                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
                           </tr>
                         </thead>
-                  
+                        <tbody>
+                            <% fake_activate.forEach(function(log) { %>
+                              <tr id="row-<%= log.id %>">
+                                  <td><%= log.id %></td>
+                                  <td data-field-name="user_id"><%= log.user_id %></td>
+                                  <td data-field-name="status"><%= log.status %></td>
+                                  <td><%= log.created_date %></td>
+                              </tr>
+                            <% }); %>
+                          </tbody>
                       </table>
                     </div>
                 </div>
