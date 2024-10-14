@@ -37,6 +37,7 @@ router.get('/Purchase_setup', async (req, res) => {
         console.error('Error querying the database:', err);
         res.status(500).send('Server Error');
     }
+    
 });
   
   module.exports = router; // Don't forget to export the router

@@ -367,74 +367,74 @@
     </ul>
   </nav>
       <!---------------------------------------------------------------Userdata Table--------------------------------------------------------- -->
-      
+      <style>
+        /* Inline styles for the checkbox */
+        input[type="checkbox"] {
+            transform: scale(2); /* Adjust the scale to change size */
+            margin: 10px; /* Optional: add some space around the checkbox */
+        }
+    </style>
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Add Popup</h4>
+                <br>
                 <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
-                    <div style="text-align: center;">
-                        <form id="popupForm" action="/popup_settings" method="POST" enctype="multipart/form-data">
-                            <h3 style="display: inline;">Enable Popup :</h3>
-                            <input type="checkbox" id="enablePopup" name="enablePopup" style="display: inline;">
-                            <br><br><br><br><br>
-                            
-                            <h3 style="display: inline;">Content Type :</h3>
-                            <select id="popup_settings" name="popup_settings"> <!-- Updated name -->
-                                <option value="text" <%= popup_settings.Type_Of_Scholarship === 'text' ? 'selected' : '' %>>Text</option>
-                                <option value="image" <%= popup_settings.Type_Of_Scholarship === 'image' ? 'selected' : '' %>>Image</option>
-                            </select>
-                            <br><br><br>
-    
-                            <!-- Textarea for 'Text' selection -->
-                            <div id="textInput" style="display: none;">
-                                <textarea name="textContent" rows="4" cols="50" placeholder="Enter your text here"></textarea>
-                            </div>
-    
-                            <!-- File input for 'Image' selection -->
-                            <div id="fileInput" style="display: none;">
-                                <input type="file" name="imageFile" accept="image/*">
-                            </div>
-                            <br><br>
-    
-                            <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary">Submit Popup</button>
-                        </form>
-                    </div>
+                  <div style="text-align: center;">
+                    <form id="popupForm" action="/popup_settings" method="POST" enctype="multipart/form-data">
+                        <h3 style="display: inline;">Enable Popup :</h3>
+                        <input type="checkbox" id="enablePopup" name="enabled" style="display: inline;">
+                        <br><br><br><br><br>
+                        
+                        <h3 style="display: inline;">Content Type:</h3>
+                        <select id="contentType" name="content_type" onchange="toggleInputFields()">
+                            <option value="text">Text</option>
+                            <option value="image">Image</option>
+                        </select>
+                        <br><br><br>
+                
+                        <!-- Textarea for 'Text' selection -->
+                        <div id="textInput" style="display: block;">
+                            <textarea name="content" rows="4" cols="50" placeholder="Enter your text here"></textarea>
+                        </div>
+                
+                        <!-- File input for 'Image' selection -->
+                        <div id="fileInput" style="display: none;">
+                            <input type="file" name="content" accept="image/*">
+                        </div>
+                        <br><br>
+                
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
                 </div>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        document.getElementById('popup_settings').addEventListener('change', function() {
-            var selectedValue = this.value;
-    
-            // Get the divs for text input and file input
-            var textInputDiv = document.getElementById('textInput');
-            var fileInputDiv = document.getElementById('fileInput');
-    
-            // Show/hide fields based on the selected value
-            if (selectedValue === 'text') {
-                textInputDiv.style.display = 'block';  // Show textarea
-                fileInputDiv.style.display = 'none';   // Hide file input
-            } else if (selectedValue === 'image') {
-                textInputDiv.style.display = 'none';   // Hide textarea
-                fileInputDiv.style.display = 'block';  // Show file input
-            } else {
-                textInputDiv.style.display = 'none';
-                fileInputDiv.style.display = 'none';
-            }
-        });
-    
-        // Trigger change event on page load to set initial state
-        document.getElementById('popup_settings').dispatchEvent(new Event('change'));
-    </script>
-    
-    
+                
+                <script>
+                    function toggleInputFields() {
+                        var selectedValue = document.getElementById('contentType').value;
+                
+                        // Get the divs for text input and file input
+                        var textInputDiv = document.getElementById('textInput');
+                        var fileInputDiv = document.getElementById('fileInput');
+                
+                        // Show/hide fields based on the selected value
+                        if (selectedValue === 'text') {
+                            textInputDiv.style.display = 'block';  // Show textarea
+                            fileInputDiv.style.display = 'none';   // Hide file input
+                        } else if (selectedValue === 'image') {
+                            textInputDiv.style.display = 'none';   // Hide textarea
+                            fileInputDiv.style.display = 'block';  // Show file input
+                        }
+                    }
+                
+                    // Optional: Trigger change event on page load to set initial state
+                    document.getElementById('contentType').dispatchEvent(new Event('change'));
+                </script>
+                
+                
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 
-        
+        <br><br><br><br><br>
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>

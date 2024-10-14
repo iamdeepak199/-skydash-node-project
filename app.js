@@ -13,9 +13,9 @@ const rank_payout = require('./routes/rank_payout');
 const reward_claim = require('./routes/reward_claim');
 const transaction_details = require('./routes/transaction_details');
 const total_business_show = require('./routes/total_business_show');
-const popup_settings = require('./routes/popup_settings');
-const Service_tax = require('./routes/Service_tax');
 const Purchase_setup = require('./routes/Purchase_setup');
+const Service_tax = require('./routes/Service_tax');
+const popup_news = require('./routes/popup_news'); // Adjust the path accordingly
 const Level_Details = require('./routes/Level_Details');
 const Rewards_check = require('./routes/Rewards_Check');
 const app = express();
@@ -37,9 +37,8 @@ app.use(session({
   cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-// Serve static files (for uploaded images)
-app.use(express.static('uploads'));
-
+// Static file serving for uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 // All Routes
@@ -52,7 +51,7 @@ app.use('/',rank_payout);
 app.use('/',reward_claim);
 app.use('/',transaction_details);
 app.use('/',total_business_show);
-app.use('/',popup_settings);
+app.use('/', popup_news);
 app.use('/',Service_tax);
 app.use('/',Purchase_setup);
 app.use('/',Level_Details);
@@ -61,7 +60,9 @@ app.use('/',Rewards_check);
 app.get('/allot_particle',(req,res)=>{
 res.render('allot_particle');
 });
-
+app.get('/popup_news',(req,res)=>{
+  res.render('popup_news');
+  });
 app.get('/consultation_income',(req,res)=>{
  res.render('consultation_income');
   });
@@ -95,7 +96,8 @@ app.get('/Withdrawal_Report',(req,res)=>{
   });
 app.get('/Bulk_withdarwal_list',(req,res)=>{
   res.render('Bulk_withdarwal_list');
-  });                                                          
+  });    
+
 // GET route for handling errors (404 page)
 
 
