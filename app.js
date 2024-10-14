@@ -96,10 +96,38 @@ app.get('/Withdrawal_Report',(req,res)=>{
   });
 app.get('/Bulk_withdarwal_list',(req,res)=>{
   res.render('Bulk_withdarwal_list');
-  });    
+  });   
+  app.get('/Rental_Manager',(req,res)=>{
+    res.render('Rental_Manager');
+    });   
+  
+    app.get('/Rent_Report',(req,res)=>{
+      res.render('Rent_Report');
+      }); 
+    
+    app.get('/Rent_Bulk',(req,res)=>{
+      res.render('Rent_Bulk');
+      }); 
+      app.get('/New_Rent_Export',(req,res)=>{
+        res.render('New_Rent_Export');
+        }); 
+        app.get('/Rent_Bulk_Together',(req,res)=>{
+          res.render('Rent_Bulk_Together');
+          }); 
+          app.get('/Approve_Rental',(req,res)=>{
+            res.render('Approve_Rental');
+            }); 
+            app.get('/Block_Rent',(req,res)=>{
+              res.render('Block_Rent');
+              }); 
+              app.get('/Resume_Rent',(req,res)=>{
+                res.render('Resume_Rent');
+                }); 
 
 // GET route for handling errors (404 page)
-
+app.get('*', (req, res) => {
+  res.status(404).render('error', { message: 'Page not found' });
+});
 
 
 
