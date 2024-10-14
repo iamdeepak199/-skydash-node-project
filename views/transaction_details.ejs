@@ -241,8 +241,8 @@
         </div>
       </div>
       <!-- partial -->
-   <!-- partial:partials/_sidebar.html -->
-   <nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <!-- partial:partials/_sidebar.html -->
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link" href="/dashboard">
@@ -283,11 +283,11 @@
         <div class="collapse" id="charts">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="./Level_Details">Level</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Consultation Income</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Royalty Payments</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Royalty Achievers</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Reward Achievers</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Reward Report</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./consultation_income">Consultation Income</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./rank_payout">Royalty Payments</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Royalty_Achievers">Royalty Achievers</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Rewards_check">Reward Achievers</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./reward_claim">Reward Report</a></li>
           </ul>
         </div>
       </li>
@@ -318,8 +318,8 @@
         </a>
         <div class="collapse" id="icons">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="">Real Active</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Fake Active</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./users_activate">Real Active</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./fake_activate">Fake Active</a></li>
           </ul>
         </div>
       </li>
@@ -331,12 +331,12 @@
         </a>
         <div class="collapse" id="auth">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href=""> Withdrawal Request </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> Bulk Approval </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> Withdrawal Report </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> New List </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> New Export </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> Bulk Withdrawal List </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Withdrawal_Request"> Withdrawal Request </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Bulk_Approval"> Bulk Approval </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Withdrawal_Report"> Withdrawal Report </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./New_list"> New List </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./New_Export"> New Export </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Bulk_withdarwal_list"> Bulk Withdrawal List </a></li>
           </ul>
         </div>
       </li>
@@ -348,13 +348,13 @@
         </a>
         <div class="collapse" id="error">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="">Ticket Request</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Ticket Reply</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Ticket_request">Ticket Request</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Ticket_reply">Ticket Reply</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/documentation/documentation.html">
+        <a class="nav-link" href="./Add_popup">
           <i class="icon-paper menu-icon"></i>
           <span class="menu-title">Add Popup/News</span>
         </a>
@@ -380,6 +380,7 @@
                           <tr>
                             <th>Sr</th>
                             <th>User ID</th>
+                            <th>User Name</th>
                             <th>User Email</th>
                             <th>Item Number</th>
                             <th>Item Price</th>
@@ -387,18 +388,47 @@
                             <th>Booked Space</th>
                             <th>Transaction id/Cheque number</th>
                           </tr>
-                        </thead>
-                  
+                           </thead>
+                        <tbody>
+                          <% transactions.forEach(function(log) { %> 
+                            <tr id="row-<%= log.id %>">
+                                <td><%= log.id %></td>
+                                <td data-field-name="user_id"><%= log.user_id %></td>
+                                <td data-field-name="customer_name"><%= log.customer_name %></td>
+                                <td data-field-name="customer_email"><%= log.customer_email %></td>
+                                <td data-field-name="item_number"><%= log.item_number %></td>
+                                <td data-field-name="item_price"><%= log.item_price %></td>
+                                <td data-field-name="paid_amount"><%= log.paid_amount %></td>
+                                <td data-field-name="sla_status"><%= log.sla_status %></td>
+                                <td data-field-name="txn_id"><%= log.txn_id %></td>
+                                <td><%= log.created_date %></td>
+                            </tr>
+                          <% }); %>
+                      </tbody>
                       </table>
                     </div>
                 </div>
                 
     </div>
 
-    
+    <br> 
+  
+        <div class="pagination">
+            <% if (hasPrevPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+            <% } %>
+            
+        <!-- Display current page and total number of pages -->
+    <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+            <% if (hasNextPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+            <% } %>
+        </div>
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 
-        
+        <br> 
+
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>

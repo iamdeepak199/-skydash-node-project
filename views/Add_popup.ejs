@@ -241,8 +241,8 @@
         </div>
       </div>
       <!-- partial -->
-   <!-- partial:partials/_sidebar.html -->
-   <nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <!-- partial:partials/_sidebar.html -->
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link" href="/dashboard">
@@ -283,11 +283,11 @@
         <div class="collapse" id="charts">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="./Level_Details">Level</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Consultation Income</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Royalty Payments</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Royalty Achievers</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Reward Achievers</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Reward Report</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./consultation_income">Consultation Income</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./rank_payout">Royalty Payments</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Royalty_Achievers">Royalty Achievers</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Rewards_check">Reward Achievers</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./reward_claim">Reward Report</a></li>
           </ul>
         </div>
       </li>
@@ -318,8 +318,8 @@
         </a>
         <div class="collapse" id="icons">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="">Real Active</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Fake Active</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./users_activate">Real Active</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./fake_activate">Fake Active</a></li>
           </ul>
         </div>
       </li>
@@ -331,12 +331,12 @@
         </a>
         <div class="collapse" id="auth">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href=""> Withdrawal Request </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> Bulk Approval </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> Withdrawal Report </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> New List </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> New Export </a></li>
-            <li class="nav-item"> <a class="nav-link" href=""> Bulk Withdrawal List </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Withdrawal_Request"> Withdrawal Request </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Bulk_Approval"> Bulk Approval </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Withdrawal_Report"> Withdrawal Report </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./New_list"> New List </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./New_Export"> New Export </a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Bulk_withdarwal_list"> Bulk Withdrawal List </a></li>
           </ul>
         </div>
       </li>
@@ -348,13 +348,13 @@
         </a>
         <div class="collapse" id="error">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="">Ticket Request</a></li>
-            <li class="nav-item"> <a class="nav-link" href="">Ticket Reply</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Ticket_request">Ticket Request</a></li>
+            <li class="nav-item"> <a class="nav-link" href="./Ticket_reply">Ticket Reply</a></li>
           </ul>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/documentation/documentation.html">
+        <a class="nav-link" href="./Add_popup">
           <i class="icon-paper menu-icon"></i>
           <span class="menu-title">Add Popup/News</span>
         </a>
@@ -366,20 +366,71 @@
       </li>
     </ul>
   </nav>
-  <!-- partial -->
       <!---------------------------------------------------------------Userdata Table--------------------------------------------------------- -->
       
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Add Popup</h4>
-                  <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
-                   
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Add Popup</h4>
+                <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
+                    <div style="text-align: center;">
+                        <form id="popupForm" action="/popup_settings" method="POST" enctype="multipart/form-data">
+                            <h3 style="display: inline;">Enable Popup :</h3>
+                            <input type="checkbox" id="enablePopup" name="enablePopup" style="display: inline;">
+                            <br><br><br><br><br>
+                            
+                            <h3 style="display: inline;">Content Type :</h3>
+                            <select id="popup_settings" name="popup_settings"> <!-- Updated name -->
+                                <option value="text" <%= popup_settings.Type_Of_Scholarship === 'text' ? 'selected' : '' %>>Text</option>
+                                <option value="image" <%= popup_settings.Type_Of_Scholarship === 'image' ? 'selected' : '' %>>Image</option>
+                            </select>
+                            <br><br><br>
+    
+                            <!-- Textarea for 'Text' selection -->
+                            <div id="textInput" style="display: none;">
+                                <textarea name="textContent" rows="4" cols="50" placeholder="Enter your text here"></textarea>
+                            </div>
+    
+                            <!-- File input for 'Image' selection -->
+                            <div id="fileInput" style="display: none;">
+                                <input type="file" name="imageFile" accept="image/*">
+                            </div>
+                            <br><br>
+    
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary">Submit Popup</button>
+                        </form>
                     </div>
                 </div>
-                
+            </div>
+        </div>
     </div>
-
+    
+    <script>
+        document.getElementById('popup_settings').addEventListener('change', function() {
+            var selectedValue = this.value;
+    
+            // Get the divs for text input and file input
+            var textInputDiv = document.getElementById('textInput');
+            var fileInputDiv = document.getElementById('fileInput');
+    
+            // Show/hide fields based on the selected value
+            if (selectedValue === 'text') {
+                textInputDiv.style.display = 'block';  // Show textarea
+                fileInputDiv.style.display = 'none';   // Hide file input
+            } else if (selectedValue === 'image') {
+                textInputDiv.style.display = 'none';   // Hide textarea
+                fileInputDiv.style.display = 'block';  // Show file input
+            } else {
+                textInputDiv.style.display = 'none';
+                fileInputDiv.style.display = 'none';
+            }
+        });
+    
+        // Trigger change event on page load to set initial state
+        document.getElementById('popup_settings').dispatchEvent(new Event('change'));
+    </script>
+    
     
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 

@@ -7,6 +7,17 @@ const chalk = require('chalk');   //hieght-light import informations
 const session = require('express-session'); // manage user sessions
 const resetPasswordRoute = require('./routes/resetpassword'); // Adjust path as needed
 const userdata = require('./routes/userdata');
+const fake_activate = require('./routes/fake_activate');
+const users_activate = require('./routes/users_activate');
+const rank_payout = require('./routes/rank_payout');
+const reward_claim = require('./routes/reward_claim');
+const transaction_details = require('./routes/transaction_details');
+const total_business_show = require('./routes/total_business_show');
+const popup_settings = require('./routes/popup_settings');
+const Service_tax = require('./routes/Service_tax');
+const Purchase_setup = require('./routes/Purchase_setup');
+const Level_Details = require('./routes/Level_Details');
+const Rewards_check = require('./routes/Rewards_Check');
 const app = express();
 
 // Set the static folder
@@ -26,40 +37,8 @@ app.use(session({
   cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-
-
-
-app.get('/Fake_Active', async (req, res) => {
-  try {
-      let page = req.query.page ? parseInt(req.query.page) : 1;
-      const limit = 10;
-      const offset = (page - 1) * limit;
-
-      // Query to fetch paginated data
-      const [results] = await db.query(`SELECT * FROM fake_activate LIMIT ? OFFSET ?`, [limit, offset]);
-
-      // Query to get the total count of records
-      const [countResult] = await db.query('SELECT COUNT(*) AS count FROM fake_activate');
-      const totalItems = countResult[0].count;
-      const totalPages = Math.ceil(totalItems / limit);  // Calculating total pages
-
-      // Render the EJS view and pass the data
-      res.render('Fake_Active', {
-          consultation_log: results,
-          currentPage: page,
-          totalPages,  // Pass totalPages to the view
-          hasNextPage: page < totalPages,
-          hasPrevPage: page > 1
-      });
-  } catch (err) {
-      console.error('Error querying the database:', err);
-      res.status(500).send('Server Error');
-  }
-});
-
-
-
-
+// Serve static files (for uploaded images)
+app.use(express.static('uploads'));
 
 
 
@@ -67,25 +46,22 @@ app.get('/Fake_Active', async (req, res) => {
 app.use('/', routes); // Rotes index page or main page
 app.use('/', resetPasswordRoute); // Register the route
 app.use('/',userdata);
+app.use('/',fake_activate);
+app.use('/',users_activate);
+app.use('/',rank_payout);
+app.use('/',reward_claim);
+app.use('/',transaction_details);
+app.use('/',total_business_show);
+app.use('/',popup_settings);
+app.use('/',Service_tax);
+app.use('/',Purchase_setup);
+app.use('/',Level_Details);
+app.use('/',Rewards_check);
 
 app.get('/allot_particle',(req,res)=>{
 res.render('allot_particle');
 });
-app.get('/transaction_details',(req,res)=>{
-  res.render('transaction_details');
-  });
-app.get('/total_business_show',(req,res)=>{
-  res.render('total_business_show');
-  });  
-app.get('/Service_tax',(req,res)=>{
-  res.render('Service_tax');
-  });     
-app.get('/Purchase_setup',(req,res)=>{
-  res.render('Purchase_setup');
-  });  
-app.get('/Level_Details',(req,res)=>{
-  res.render('Level_Details');
-  });  
+
 app.get('/consultation_income',(req,res)=>{
  res.render('consultation_income');
   });
@@ -95,27 +71,10 @@ app.get('/Ticket_request',(req,res)=>{
 app.get('/Ticket_reply',(req,res)=>{
   res.render('Ticket_reply');
   });
-app.get('/Real_Active',(req,res)=>{
-  res.render('Real_Active');
-  });
-app.get('/Fake_Active',(req,res)=>{
- res.render('Fake_Active');
-  });
-app.get('/Royalty_details',(req,res)=>{
-  res.render('Royalty_details');
-  });
 app.get('/Royalty_Achievers',(req,res)=>{
   res.render('Royalty_Achievers');
   });
-app.get('/Rewards_check',(req,res)=>{
-  res.render('Rewards_check');
-  });
-app.get('/Rewards_Report',(req,res)=>{
-  res.render('Rewards_Report');
-  });  
-app.get('/Add_popup',(req,res)=>{
-  res.render('Add_popup');
-  });                  
+             
 app.get('/Withdrawal_Request',(req,res)=>{
   res.render('Withdrawal_Request');
   });
@@ -138,9 +97,7 @@ app.get('/Bulk_withdarwal_list',(req,res)=>{
   res.render('Bulk_withdarwal_list');
   });                                                          
 // GET route for handling errors (404 page)
-app.get('*', (req, res) => {
-  res.status(404).render('error', { message: 'Page not found' });
-});
+
 
 
 
