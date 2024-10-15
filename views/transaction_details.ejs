@@ -406,10 +406,12 @@
                                 <td data-field-name="txn_id"><%= log.txn_id %></td>
                                 <td data-field-name="strip_checkout_session_id"><%= log.stripe_checkout_session_id %></td>
                                 <td data-field-name="created"><%= new Date(log.created).toLocaleDateString() %></td>
-                                <td><button type="button" class="btn btn-success btn-sm" onclick="editRow('<%= log.id %>')">
-                                  <i class="fas fa-eye"></i> Print
-                              </button>
+                                <td>
+                                  <button type="button" class="btn btn-success btn-sm" onclick="window.open('/generate-pdf/<%= log.id %>', '_blank')">
+                                      <i class="fas fa-eye"></i> Print
+                                  </button>
                               </td>
+                              
                             </tr>
                           <% }); %>
                       </tbody>

@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+const path = require('path');
 const getDb = require('../config/database'); // Adjust the path if necessary
 
-// GET request for /userdata
+// GET request for /transaction_details (Paginated Data)
 router.get('/transaction_details', async (req, res) => {
     try {
         let page = req.query.page ? parseInt(req.query.page) : 1;
@@ -38,6 +41,51 @@ router.get('/transaction_details', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-  
-  module.exports = router; // Don't forget to export the router
-  
+
+// GET request to generate PDF for a specific transaction
+router.get('/generate-pdf/:id', async (req, res) => {
+    const { id } = req.params;
+
+    // Query the database to get the data for the specific row
+    const db = getDb(); // Call your function to get the database connection
+    const [results] = await db.query('SELECT * FROM transactions WHERE id = ?', [id]); // Adjust your query accordingly
+
+    if (results.length === 0) {
+        return res.status(404).send('No data found');
+    }
+
+    const doc = new PDFDocument();
+    const outputDir = path.join(__dirname, 'output'); // Define output directory
+    const filePath = path.join(outputDir, `${id}.pdf`); // Output path for PDF
+
+    // Ensure the output directory exists
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true }); // Create directory if it doesn't exist
+    }
+
+    doc.pipe(fs.createWriteStream(filePath));
+
+    // Add content to the PDF
+    doc.fontSize(25).text('Your PDF Title', { align: 'center' });
+    doc.text(`ID: ${results[0].id}`);
+    doc.text(`Name: ${results[0].customer_name}`);
+    // Add more fields as necessary
+
+    doc.end();
+
+    // Once PDF is created, send it to the client
+    doc.on('finish', () => {
+        res.download(filePath, (err) => {
+            if (err) {
+                console.error('Error downloading the file:', err);
+            }
+            // Optionally, delete the file after sending it
+            fs.unlink(filePath, (err) => {
+                if (err) console.error('Error deleting the file:', err);
+            });
+        });
+    });
+});
+
+// Export the router
+module.exports = router;

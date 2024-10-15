@@ -18,7 +18,6 @@ const Service_tax = require('./routes/Service_tax');
 const popup_news = require('./routes/popup_news'); // Adjust the path accordingly
 const Level_Details = require('./routes/Level_Details');
 const Rewards_check = require('./routes/Rewards_Check');
-//const Sum_particles = require('./routes/Sum_particles');
 const app = express();
 
 // Set the static folder
@@ -56,7 +55,6 @@ app.use('/',Service_tax);
 app.use('/',Purchase_setup);
 app.use('/',Level_Details);
 app.use('/',Rewards_check);
-//app.use('/',Sum_particles);
 app.use('/',total_business_show);
 
 
