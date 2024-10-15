@@ -387,6 +387,9 @@
                             <th>Paid Amount</th>
                             <th>Booked Space</th>
                             <th>Transaction id/Cheque number</th>
+                            <th>Method</th>
+                            <th>Date</th>
+                            <th>Reciept</th>
                           </tr>
                            </thead>
                         <tbody>
@@ -401,7 +404,12 @@
                                 <td data-field-name="paid_amount"><%= log.paid_amount %></td>
                                 <td data-field-name="sla_status"><%= log.sla_status %></td>
                                 <td data-field-name="txn_id"><%= log.txn_id %></td>
-                                <td><%= log.created_date %></td>
+                                <td data-field-name="strip_checkout_session_id"><%= log.stripe_checkout_session_id %></td>
+                                <td data-field-name="created"><%= new Date(log.created).toLocaleDateString() %></td>
+                                <td><button type="button" class="btn btn-success btn-sm" onclick="editRow('<%= log.id %>')">
+                                  <i class="fas fa-eye"></i> Print
+                              </button>
+                              </td>
                             </tr>
                           <% }); %>
                       </tbody>

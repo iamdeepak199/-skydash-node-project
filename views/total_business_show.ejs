@@ -385,14 +385,23 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <% transactions.forEach(function(log) { %> 
-                            <tr id="row-<%= log.id %>">
-                                <td><%= log.id %></td>
-                                <td data-field-name="user_id"><%= log.user_id %></td>
-                                <td data-field-name="customer_name"><%= log.customer_name %></td>
+                          <% if (transactions.length > 0) { %>
+                            <% transactions.forEach((transaction, index) => { %>
+                              <tr>
+                                <!-- Calculate serial number by adding the offset to index -->
+                                <td><%= (currentPage - 1) * 10 + index + 1 %></td> <!-- Serial Number -->
+                                <td><%= transaction.user_id %></td>
+                                <td><%= transaction.customer_name %></td>
+                                <td><%= transaction.total_particle || 0 %></td> <!-- Total Particle -->
+                              </tr>
+                            <% }) %>
+                          <% } else { %>
+                            <tr>
+                              <td colspan="4" class="text-center">No data available</td>
                             </tr>
-                          <% }); %>
-                      </tbody>
+                          <% } %>
+                        </tbody>
+                        
                       </table>
                     </div>
                 </div>
@@ -401,18 +410,20 @@
 
     <br> 
   
-        <div class="pagination">
-            <% if (hasPrevPage) { %>
-                <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
-            <% } %>
-            
-        <!-- Display current page and total number of pages -->
-    <span>Page <%= currentPage %> of <%= totalPages %></span>
-
-            <% if (hasNextPage) { %>
-                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
-            <% } %>
-        </div>
+    <div class="pagination">
+      <% if (hasPrevPage) { %>
+          <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" 
+              onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+      <% } %>
+  
+      <!-- Display current page and total number of pages -->
+      <span>Page <%= currentPage %> of <%= totalPages %></span>
+  
+      <% if (hasNextPage) { %>
+          <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" 
+              onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+      <% } %>
+  </div>
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 <br>
         
