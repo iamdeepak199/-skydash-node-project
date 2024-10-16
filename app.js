@@ -18,6 +18,11 @@ const Service_tax = require('./routes/Service_tax');
 const popup_news = require('./routes/popup_news'); // Adjust the path accordingly
 const Level_Details = require('./routes/Level_Details');
 const Rewards_check = require('./routes/Rewards_Check');
+const consultation_income = require('./routes/consultation_income');
+const Withdrawal_Request = require('./routes/Withdrawal_Request');
+const Bulk_Approval = require('./routes/Bulk_Approval');
+const Withdrawal_Report = require('./routes/Withdrawal_Report');
+const dashboard = require('./routes/dashboard');
 const app = express();
 
 // Set the static folder
@@ -56,6 +61,12 @@ app.use('/',Purchase_setup);
 app.use('/',Level_Details);
 app.use('/',Rewards_check);
 app.use('/',total_business_show);
+app.use('/',consultation_income);
+app.use('/',Withdrawal_Request);
+app.use('/',Bulk_Approval);
+app.use('/',Withdrawal_Report);
+app.use('/',dashboard);
+
 
 
 
@@ -64,9 +75,6 @@ res.render('allot_particle');
 });
 app.get('/popup_news',(req,res)=>{
   res.render('popup_news');
-  });
-app.get('/consultation_income',(req,res)=>{
- res.render('consultation_income');
   });
 app.get('/Ticket_request',(req,res)=>{
   res.render('Ticket_request');
@@ -77,25 +85,16 @@ app.get('/Ticket_reply',(req,res)=>{
 app.get('/Royalty_Achievers',(req,res)=>{
   res.render('Royalty_Achievers');
   });
-             
-app.get('/Withdrawal_Request',(req,res)=>{
-  res.render('Withdrawal_Request');
-  });
 app.get('/New_Export',(req,res)=>{
   res.render('New_Export');
   });
 app.get('/New_list',(req,res)=>{
   res.render('New_list');
   });
-app.get('/Bulk_Approval',(req,res)=>{
-  res.render('Bulk_Approval');
-  });
+
 app.get('/Bulk_Approval',(req,res)=>{
   res.render('Bulk_Approval');
   });  
-app.get('/Withdrawal_Report',(req,res)=>{
-  res.render('Withdrawal_Report');
-  });
 app.get('/Bulk_withdarwal_list',(req,res)=>{
   res.render('Bulk_withdarwal_list');
   });   

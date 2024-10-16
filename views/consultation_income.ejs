@@ -381,21 +381,50 @@
                             <th>Sr</th>
                             <th>User ID</th>
                             <th>Name</th>
-                            <th>Form ID</th>
+                            <th>From ID</th>
                             <th>From Name</th>
                             <th>Income</th>
                             <th>Level</th>
                             <th>Date</th>
                           </tr>
                         </thead>
-                  
+                        <tbody>
+                          <% consultation_log.forEach(function(log) { %>
+                            <tr id="row-<%= log.id %>">
+                                <td><%= log.id %></td>
+                                <td data-field-name="user_id"><%= log.user_id %></td>
+                                <td data-field-name="name"><%= log.name %></td>
+                                <td data-field-name="get_income_from_id"><%= log.get_income_from_id %></td>
+                                <td data-field-name="name"><%= log.name %></td>
+                                <td data-field-name="income"><%= log.income %></td>
+                                <td data-field-name="level"><%= log.level %></td>
+                                <td>
+                                  <%= log.updated_date ? log.updated_date.toISOString().slice(0, 16).replace('T', ' ') : '' %>
+                                </td>
+                            </tr>
+                          <% }); %>
+                        </tbody>
                       </table>
                     </div>
                 </div>
                 
     </div>
+    <br> <br>
+    <nav>
+        <div class="pagination">
+            <% if (hasPrevPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+            <% } %>
+            
+        <!-- Display current page and total number of pages -->
+    <span>Page <%= currentPage %> of <%= totalPages %></span>
 
-    
+            <% if (hasNextPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+            <% } %>
+        </div>
+        
+    <br><br>
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 
         

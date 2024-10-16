@@ -380,23 +380,62 @@
                           <tr>
                             <th>Sr</th>
                             <th>User ID</th>
-                            <th>User Name</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Request Amount</th>
                             <th>Paid Amount</th>
                             <th>Bank Name</th>
                             <th>Account Number</th>
-                            
+                            <th>IFSC</th>
+                            <th>Date Of Request</th>
+                            <th>Status</th>
                           </tr>
                         </thead>
-                  
+                        <tbody>
+                          <% withdraw.forEach(function(log) { %>
+                            <tr id="row-<%= log.id %>">
+                                <td><%= log.id %></td>
+                                <td data-field-name="user_id"><%= log.user_id %></td>
+                                <td data-field-name="name"><%= log.name %></td>
+                                <td data-field-name="email"><%= log.email %></td>
+                                <td data-field-name="mobile"><%= log.mobile %></td>
+                                <td data-field-name="amount"><%= log.amount %></td>
+                                <td data-field-name="paid_amount"><%= log.paid_amount %></td>
+                                <td data-field-name="bank_name"><%= log.bank_name %></td>
+                                <td data-field-name="account_number"><%= log.account_number %></td>
+                                <td data-field-name="ifsc_code"><%= log.ifsc_code %></td>
+                                <td>
+                                  <%= log.created_date ? new Date(log.created_date).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) : '' %>
+                                </td>
+                                
+                                <td>
+                                  <button type="button" class="btn btn-success btn-sm" onclick="editRow('<%= log.id %>')">Approve</button>
+                                </td>
+                            </tr>
+                          <% }); %>
+                        </tbody>
                       </table>
                     </div>
                 </div>
                 
-    </div>
-
+    
+    <br> <br>
+    <nav>
+        <div class="pagination">
+            <% if (hasPrevPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+            <% } %>
+            
+        <!-- Display current page and total number of pages -->
+    <span>Page <%= currentPage %> of <%= totalPages %></span>
+  
+            <% if (hasNextPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+            <% } %>
+        </div>
+        
+      <br><br>
     
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 
