@@ -392,25 +392,31 @@
                
 
 
-
-
 <div class="col-md-12 grid-margin transparent">
-                  <div class="row">
-                    <div class="col-md-4 mb-4 stretch-card transparent">
-                      <div class="card card-tale">
-                        <div class="card-body">
-                          <div class="grid">
-                            <div class="grid-body text-black">
-                              <div class="d-flex justify-content-between">
-                        <i class="fa fa-inr" aria-hidden="true" style="font-size: 25px;"></i><p>Total Partical Sold</p>
-                              </div>
-                               <br>
-                              <p class="text-black">12689988.48</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <div class="row">
+    <div class="col-md-4 mb-4 stretch-card transparent">
+      <div class="card card-tale">
+        <div class="card-body">
+          <div class="grid">
+            <div class="grid-body text-black">
+              <div class="d-flex justify-content-between">
+                <i class="fa fa-inr" aria-hidden="true" style="font-size: 25px;"></i>
+                <p>Total Particle Sold</p>
+              </div>
+              <br>
+              <p class="text-black">
+                <%= typeof totalParticle !== 'undefined' ? totalParticle.toFixed(2) : '0.00' %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+
+
               
                 
                 <div class="col-md-4 mb-4 stretch-card transparent">
@@ -419,15 +425,18 @@
                       <div class="grid">
                         <div class="grid-body text-black">
                           <div class="d-flex justify-content-between">
-                            <i class="fa fa-inr" aria-hidden="true" style="font-size: 25px;"></i><p>Total Paid Amount</p>
+                            <i class="fa fa-inr" aria-hidden="true" style="font-size: 25px;"></i>
+                            <p>Total Paid Amount</p>
                           </div>
-                           <br>
-                          <p class="text-black">12689988.48</p>
+                          <br>
+                          <%= typeof totalPaidAmount !== 'undefined' ? totalPaidAmount.toFixed(2) : '0.00' %>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+                
+              
                 
             <div class="col-md-4 mb-4 stretch-card transparent">
               <div class="card card-tale">
