@@ -3,6 +3,7 @@ const router = express.Router();
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
+const jspdf = require('jspdf');
 const getDb = require('../config/database'); // Adjust the path if necessary
 
 // GET request for /transaction_details (Paginated Data)

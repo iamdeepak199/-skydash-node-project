@@ -395,7 +395,29 @@
                             <th>Action</th>
                           </tr>
                         </thead>
-                  
+                        <% roi_payout_log.forEach(function(log) { %> 
+                          <tr id="row-<%= log.id %>">
+                              <td><%= log.id %></td>
+                              <td data-field-name="user_id"><%= log.user_id %></td>
+                              <td data-field-name="user_name"><%= log.user_name %></td>
+                              <td data-field-name="roi_monthly_amount"><%= log.roi_monthly_amount %></td>
+                              <td data-field-name="package"><%= log.package %></td>
+                              <td data-field-name="roi_paid"><%= log.roi_paid %></td>
+                              <td data-field-name="net_paid"><%= log.net_paid %></td>
+                              <td data-field-name="total_days"><%= log.total_days %></td>
+                              <td data-field-name="bank_name"><%= log.bank_name %></td>
+                              <td data-field-name="bank_account"><%= log.bank_account %></td>
+                              <td data-field-name="bank_ifsc"><%= log.bank_ifsc %></td>
+                              <td data-field-name="admin"><%= log.admin %></td>
+                              <td data-field-name="tds_charges"><%= log.tds_charges %></td>
+                              <td data-field-name="created_date">
+                                <%= new Date(log.created_date).toLocaleDateString() %> 
+                                <%= new Date(log.created_date).toLocaleTimeString() %>
+                              </td>
+                              <td><button type="button" class="btn btn-warning btn-sm" onclick="editRow('<%= log.id %>')">Edit</button></td>
+                             
+                            </tr>
+                            <% }); %>
                       </table>
                     </div>
                 </div>

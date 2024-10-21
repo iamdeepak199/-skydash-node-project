@@ -391,13 +391,9 @@
                             <tr id="row-<%= log.id %>">
                                 <td><%= log.id %></td>
                                 <td data-field-name="user_id"><%= log.user_id %></td>
-                                <td data-field-name="name"><%= log.name %></td>
+                                <td data-field-name="name"><%= log.user_name %></td> 
                                 <td data-field-name="reward"><%= log.reward %></td>
                                 <td>
-                                  <form action="/your-endpoint" method="post" style="display:inline;">
-                                    <input type="hidden" name="id" value="<%= log.id %>">
-                                    
-                                  </form>
                                   <button type="button" class="btn btn-warning btn-sm" onclick="editRow('<%= log.id %>')">Approve</button>
                                   
                                 </td>

@@ -1,27 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const getDb = require('../config/database'); // Adjust the path as necessary
+const getDb = require('../config/database'); // Import the database connection function
 
-router.get('/dashboard', async (req, res) => {
-    const totalParticleQuery = 'SELECT SUM(COALESCE(team_particle_count, 0)) AS totalParticle FROM user;';
+// Route to fetch total particles sold
+router.get('/dashboard', (req, res) => {
+    const db = getDb();  // Get the database connection directly
 
-    try {
-        const db = await getDb(); // Get the database connection
-        const [rows] = await db.query(totalParticleQuery); // Execute the query
-
-        // Check if totalParticle is fetched correctly
-        const totalParticle = (rows.length > 0 && rows[0].totalParticle !== null) 
-                            ? rows[0].totalParticle 
-                            : 0;
-
-        console.log('Total Particle:', totalParticle); // Log the value to ensure it's correct
-
-        // Pass totalParticle to the view (important)
-        res.render('dashboard', { totalParticle });
-    } catch (err) {
-        console.error('Error fetching total particles:', err);
-        return res.status(500).send('Internal Server Error');
+    if (!db) {
+        console.error('Database connection not available');
+        return res.status(500).send('Database connection error');
     }
+
+    // Query to calculate the sum of the 'particle' column in users_activate table
+    const particleSumQuery = `SELECT SUM(COALESCE(particle, 0)) AS totalParticle FROM users_activate;`;
+
+    db.query(particleSumQuery, (err, rows) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            return res.status(500).send('Internal Server Error');
+        }
+
+        console.log('Query Result:', rows); // Log for debugging
+        const totalParticle = (rows[0]?.totalParticle || 0);  // Optional chaining
+
+        // Render the dashboard and pass the total particle sum to the view
+        res.render('dashboard', { totalParticle });
+    });
 });
 
 module.exports = router;

@@ -384,14 +384,37 @@
                             <th>Action</th>
                           </tr>
                         </thead>
-                  
+                        <% user.forEach(function(log) { %> 
+                          <tr id="row-<%= log.id %>">
+                              <td><%= log.id %></td>
+                              <td data-field-name="user_id"><%= log.user_id %></td>
+                              <td data-field-name="user_name"><%= log.user_name %></td>
+                              </td>
+                              <td><button type="button" class="btn btn-warning btn-sm" onclick="editRow('<%= log.id %>')">Edit</button></td>
+                             
+                            </tr>
+                            <% }); %>
                       </table>
                     </div>
                 </div>
                 
     </div>
     
-    
+    <br> <br>
+    <nav>
+        <div class="pagination">
+            <% if (hasPrevPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+            <% } %>
+            
+        <!-- Display current page and total number of pages -->
+    <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+            <% if (hasNextPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+            <% } %>
+        </div>
+        <br><br>
 
     
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->

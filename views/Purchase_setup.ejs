@@ -390,21 +390,26 @@
                             <th>IGST</th>
                             <th>CGST</th>
                             <th>SGST</th>
-                          </tr>
-                          <tbody>
-                            <% user.forEach(function(log) { %> 
-                              <tr id="row-<%= log.id %>">
-                                  <td><%= log.id %></td>
-                                  <td data-field-name="created_date"><%= log.created_date %></td>
-                                  <td data-field-name="user_id"><%= log.user_id %></td>
-                                  <td data-field-name="user_name"><%= log.user_name %></td>
-                                  <td data-field-name="customer_email"><%= log.customer_email %></td>
-                                  <td data-field-name="address"><%= log.address %></td>
-                                  <td data-field-name="pan_no"><%= log.pan_no %></td>
-                                 
-                                </tr>
-                                <% }); %>
-                            </tbody>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% user.forEach(function(log) { %> 
+                        <tr id="row-<%= log.id %>">
+                          <td><%= new Date(log.created).toLocaleDateString() %></td>
+                            <td><%= log.user_id %></td>
+                            <td><%= log.customer_name %></td>
+                            <td><%= log.item_number %></td>
+                            <td><%= log.address %></td>
+                            <td><%= log.state %></td>
+                            <td><%= log.particle %></td>
+                            <td><%= log.pan_no %></td>
+                            <td><%= log.item_price %></td>
+                            <td><%= log.gst %></td>
+                            <td><%= log.cgst %></td>
+                            <td><%= log.igst %></td>
+                        </tr>
+                    <% }); %>
+                    </tbody>
                       
                           </table>
                         </div>

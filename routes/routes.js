@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
+const getDb = require('../config/database');
 const authenticateToken = require('../middleware/auth'); // Adjust the path as needed
 const upload = require('../middleware/upload'); // Adjust the path as needed
 
@@ -11,7 +12,7 @@ const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '12345',
-  database: 'Admin3'
+  database: 'users'
 });
 
 // Display home page
@@ -106,22 +107,47 @@ router.post('/login', async (req, res) => {
 });
 
 
-// Display dashboard after login
+// Route to display dashboard after login
 router.get('/dashboard', authenticateToken, async (req, res) => {
+  const db = getDb(); // Get the database connection
   try {
-    const [adminRows] = await db.execute('SELECT id, username, email FROM admins WHERE id = ?', [req.admin.id]);
-    const admin = adminRows[0];
+      // Fetch admin details
+      const [adminRows] = await db.execute('SELECT id, username, email FROM admins WHERE id = ?', [req.admin.id]);
+      const admin = adminRows[0];
 
-    if (!admin) {
-      return res.status(404).send('Admin not found');
-    }
+      if (!admin) {
+          return res.status(404).send('Admin not found');
+      }
 
-    res.render('dashboard', { admin });
+
+    // Fetch total paid amount for rank 'sales'
+    const [salesAmountRows] = await db.execute('SELECT SUM(amount) AS totalPaidAmount FROM rank_payout WHERE `rank` = ?', ['sales']);
+    const totalPaidAmount = Number(salesAmountRows[0]?.totalPaidAmount) || 0; // Convert to number
+
+    // Fetch total paid amount for rank 'branch'
+    const [branchAmountRows] = await db.execute('SELECT SUM(amount) AS totalPaidAmount FROM rank_payout WHERE `rank` = ?', ['branch']);
+    const totalPaidAmountBranch = Number(branchAmountRows[0]?.totalPaidAmount) || 0; // Convert to number
+
+    // Fetch total paid amount for rank 'zonal'
+    const [zonalAmountRows] = await db.execute('SELECT SUM(amount) AS totalPaidAmount FROM rank_payout WHERE `rank` = ?', ['zonal']);
+    const totalPaidAmountZonal = Number(zonalAmountRows[0]?.totalPaidAmount) || 0; // Convert to number
+
+
+      // Fetch the total sum of particles from users_activate table
+      const [particleRows] = await db.execute('SELECT SUM(particle) AS totalParticle FROM users_activate');
+      const totalParticle = Number(particleRows[0]?.totalParticle) || 0; // Convert to number and default to 0 if no results 
+
+      // Render the dashboard view with admin, totalPaidAmount, and totalParticle data
+      res.render('dashboard', { admin, totalPaidAmount, totalParticle,totalPaidAmountBranch,totalPaidAmountZonal }); // Ensure totalParticle is passed here
   } catch (error) {
-    console.error('Error fetching admin:', error);
-    res.status(500).send('Server error');
+      console.error('Error fetching data:', error);
+      res.status(500).send('Server error');
   }
 });
+
+
+
+
 
 // Display profile page
 router.get('/profile', authenticateToken, async (req, res) => {

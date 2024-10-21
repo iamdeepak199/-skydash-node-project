@@ -22,7 +22,10 @@ const consultation_income = require('./routes/consultation_income');
 const Withdrawal_Request = require('./routes/Withdrawal_Request');
 const Bulk_Approval = require('./routes/Bulk_Approval');
 const Withdrawal_Report = require('./routes/Withdrawal_Report');
-const dashboard = require('./routes/dashboard');
+//const dashboardRoutes = require('./routes/dashboard');
+const Rental_Manager = require('./routes/Rental_Manager');
+const Resume_Rent = require('./routes/Resume_Rent');
+
 const app = express();
 
 // Set the static folder
@@ -65,9 +68,9 @@ app.use('/',consultation_income);
 app.use('/',Withdrawal_Request);
 app.use('/',Bulk_Approval);
 app.use('/',Withdrawal_Report);
-app.use('/',dashboard);
-
-
+//app.use(dashboardRoutes);
+app.use('/',Rental_Manager);
+app.use('/',Resume_Rent);
 
 
 app.get('/allot_particle',(req,res)=>{
@@ -97,10 +100,7 @@ app.get('/Bulk_Approval',(req,res)=>{
   });  
 app.get('/Bulk_withdarwal_list',(req,res)=>{
   res.render('Bulk_withdarwal_list');
-  });   
-  app.get('/Rental_Manager',(req,res)=>{
-    res.render('Rental_Manager');
-    });   
+  });      
   
     app.get('/Rent_Report',(req,res)=>{
       res.render('Rent_Report');
@@ -121,9 +121,6 @@ app.get('/Bulk_withdarwal_list',(req,res)=>{
             app.get('/Block_Rent',(req,res)=>{
               res.render('Block_Rent');
               }); 
-              app.get('/Resume_Rent',(req,res)=>{
-                res.render('Resume_Rent');
-                }); 
 
 // GET route for handling errors (404 page)
 app.get('*', (req, res) => {
