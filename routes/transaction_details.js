@@ -3,7 +3,6 @@ const router = express.Router();
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
-const jspdf = require('jspdf');
 const getDb = require('../config/database'); // Adjust the path if necessary
 
 // GET request for /transaction_details (Paginated Data)
@@ -15,21 +14,20 @@ router.get('/transaction_details', async (req, res) => {
 
         const db = getDb(); // Call the function to get the db connection
 
-        // Check if db is defined
         if (!db) {
             console.error('Database connection is not defined.');
             return res.status(500).send('Database connection is not available.');
         }
 
-        // Query to fetch paginated data
+        // Fetch paginated transaction data
         const [results] = await db.query(`SELECT * FROM transactions LIMIT ? OFFSET ?`, [limit, offset]);
 
-        // Query to get the total count of records
+        // Fetch total number of items for pagination
         const [countResult] = await db.query('SELECT COUNT(*) AS count FROM transactions');
         const totalItems = countResult[0].count;
-        const totalPages = Math.ceil(totalItems / limit);  // Calculating total pages
+        const totalPages = Math.ceil(totalItems / limit);
 
-        // Render the EJS view and pass the data
+        // Render transaction details page with pagination info
         res.render('transaction_details', {
             transactions: results,
             currentPage: page,
@@ -47,46 +45,75 @@ router.get('/transaction_details', async (req, res) => {
 router.get('/generate-pdf/:id', async (req, res) => {
     const { id } = req.params;
 
-    // Query the database to get the data for the specific row
-    const db = getDb(); // Call your function to get the database connection
-    const [results] = await db.query('SELECT * FROM transactions WHERE id = ?', [id]); // Adjust your query accordingly
+    try {
+        const db = getDb(); // Get the database connection
+        const [results] = await db.query('SELECT * FROM transactions WHERE id = ?', [id]);
 
-    if (results.length === 0) {
-        return res.status(404).send('No data found');
-    }
+        if (results.length === 0) {
+            return res.status(404).send('No data found');
+        }
 
-    const doc = new PDFDocument();
-    const outputDir = path.join(__dirname, 'output'); // Define output directory
-    const filePath = path.join(outputDir, `${id}.pdf`); // Output path for PDF
+        // Create a new PDF document
+        const doc = new PDFDocument();
+        const outputDir = path.join(__dirname, 'output');
+        const filePath = path.join(outputDir, `${id}.pdf`);
 
-    // Ensure the output directory exists
-    if (!fs.existsSync(outputDir)) {
-        fs.mkdirSync(outputDir, { recursive: true }); // Create directory if it doesn't exist
-    }
+        // Ensure the output directory exists
+        if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
+        }
 
-    doc.pipe(fs.createWriteStream(filePath));
+        // Create the write stream to save the file
+    const writeStream = fs.createWriteStream(filePath);
+    
+    // Pipe the PDF content to the write stream
+    doc.pipe(writeStream);
 
-    // Add content to the PDF
-    doc.fontSize(25).text('Your PDF Title', { align: 'center' });
-    doc.text(`ID: ${results[0].id}`);
-    doc.text(`Name: ${results[0].customer_name}`);
-    // Add more fields as necessary
+    doc.fontSize(25).fillColor('blue').text('Transaction Details', { align: 'center' });
 
+    doc.moveDown(); // Add some space
+    
+    doc.fontSize(12).fillColor('black').text('Transaction Summary:', { underline: true });
+    doc.moveDown(0.5);
+    doc.text(`Transaction ID: ${results[0].id}`, { indent: 20 });
+    doc.text(`User ID: ${results[0].user_id}`, { indent: 20 });
+    doc.text(`Customer Name: ${results[0].customer_name}`, { indent: 20 });
+    doc.text(`Customer email: ${results[0].customer_email}`, { indent: 20 });
+    doc.text(`Product ID: ${results[0].item_number}`, { indent: 20 });
+    doc.text(`Product Amount: ${results[0].item_price}`, { indent: 20 });
+    doc.text(`Paid Amount: ${results[0].paid_amount}`, { indent: 20 });
+    doc.text(`Booked Space: ${results[0].item_number}`, { indent: 20 });
+    doc.text(`Transaction ID/Cheque Number: ${results[0].txn_id}`, { indent: 20 });
+    doc.text(`Method: ${results[0].stripe_checkout_session_id}`, { indent: 20 });
+    doc.text(`Created Date: ${results[0].created}`, { indent: 20 });
+    
+    doc.moveDown(2);
+    doc.moveTo(50, doc.y).lineTo(550, doc.y).stroke(); // Horizontal line to separate
+    
     doc.end();
 
-    // Once PDF is created, send it to the client
-    doc.on('finish', () => {
-        res.download(filePath, (err) => {
-            if (err) {
-                console.error('Error downloading the file:', err);
-            }
-            // Optionally, delete the file after sending it
-            fs.unlink(filePath, (err) => {
-                if (err) console.error('Error deleting the file:', err);
+        // Handle the event after the PDF has been written
+        writeStream.on('finish', () => {
+            // Send the PDF as a response after generation
+            res.download(filePath, (err) => {
+                if (err) {
+                    console.error('Error downloading the file:', err);
+                }
+                // Optionally delete the file after sending it
+                fs.unlink(filePath, (err) => {
+                    if (err) console.error('Error deleting the file:', err);
+                });
             });
         });
-    });
+
+        writeStream.on('error', (err) => {
+            console.error('Error writing the file:', err);
+            res.status(500).send('Error generating PDF');
+        });
+    } catch (err) {
+        console.error('Error querying the database:', err);
+        res.status(500).send('Server Error');
+    }
 });
 
-// Export the router
 module.exports = router;

@@ -25,6 +25,7 @@ const Withdrawal_Report = require('./routes/Withdrawal_Report');
 //const dashboardRoutes = require('./routes/dashboard');
 const Rental_Manager = require('./routes/Rental_Manager');
 const Resume_Rent = require('./routes/Resume_Rent');
+const Royalty_Achievers = require('./routes/Royalty_Achievers');
 
 const app = express();
 
@@ -71,7 +72,7 @@ app.use('/',Withdrawal_Report);
 //app.use(dashboardRoutes);
 app.use('/',Rental_Manager);
 app.use('/',Resume_Rent);
-
+app.use('/',Royalty_Achievers);
 
 app.get('/allot_particle',(req,res)=>{
 res.render('allot_particle');
@@ -84,9 +85,6 @@ app.get('/Ticket_request',(req,res)=>{
    });
 app.get('/Ticket_reply',(req,res)=>{
   res.render('Ticket_reply');
-  });
-app.get('/Royalty_Achievers',(req,res)=>{
-  res.render('Royalty_Achievers');
   });
 app.get('/New_Export',(req,res)=>{
   res.render('New_Export');

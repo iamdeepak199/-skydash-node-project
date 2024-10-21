@@ -369,37 +369,119 @@
   <!-- partial -->
       <!---------------------------------------------------------------Userdata Table--------------------------------------------------------- -->
       
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Fake Active</h4>
-                  <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Fake Active</h4>
+                <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
                     <div class="table-responsive" style="min-width: 1200px;">
-                      <table class="table table-hover" style="width: 100%;">
-                        <thead>
-                          <tr>
-                            <th>Sr</th>
-                            <th>User ID</th>
-                            <th>Status</th>
-                            <th>Created Date</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <% fake_activate.forEach(function(log) { %>  <!-- Use fake_activate here -->
-                            <tr id="row-<%= log.id %>">
-                                <td><%= log.id %></td>
-                                <td data-field-name="user_id"><%= log.user_id %></td>
-                                <td data-field-name="status"><%= log.status %></td>
-                                <td><%= log.created_date %></td>
-                            </tr>
-                          <% }); %>
-                      </tbody>
-                      </table>
+                        <table id="rankPayoutTable" class="table table-hover" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable(0)">Sr <span id="arrow-0" class="sort-arrow">▲▼</span></th>
+                                    <th onclick="sortTable(1)">User ID<span id="arrow-1" class="sort-arrow">▲▼</span></th>
+                                    <th onclick="sortTable(2)">Status<span id="arrow-2" class="sort-arrow">▲▼</span></th>
+                                    <th onclick="sortTable(3)">Created Date<span id="arrow-3" class="sort-arrow">▲▼</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% fake_activate.forEach(function(log) { %>
+                                    <tr id="row-<%= log.id %>">
+                                        <td><%= log.id %></td>
+                                        <td data-field-name="user_id"><%= log.user_id %></td>
+                                        <td data-field-name="status"><%= log.status %></td>
+                                        <td><%= log.created_date %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                
+            </div>
+        </div>
     </div>
-
+    
+    <script>
+        let currentSortColumn = -1; // Track the currently sorted column
+        let currentSortOrder = 'asc'; // Track the sort order
+    
+        function sortTable(columnIndex) {
+            const table = document.getElementById("rankPayoutTable");
+            const tbody = table.getElementsByTagName("tbody")[0];
+            const rows = Array.from(tbody.getElementsByTagName("tr"));
+    
+            let direction = 'asc'; // Default direction
+    
+            // If the same column is clicked, toggle the sort order
+            if (currentSortColumn === columnIndex) {
+                direction = currentSortOrder === 'asc' ? 'desc' : 'asc';
+            }
+    
+            // Sort rows based on the selected column
+            rows.sort((a, b) => {
+                const aText = a.getElementsByTagName("td")[columnIndex].innerText;
+                const bText = b.getElementsByTagName("td")[columnIndex].innerText;
+    
+                let aValue, bValue;
+    
+                // Handle date columns
+                if (columnIndex === 3) { // Assuming "Created Date" is the 4th column
+                    aValue = new Date(aText);
+                    bValue = new Date(bText);
+                } else {
+                    aValue = isNaN(aText) ? aText : parseFloat(aText);
+                    bValue = isNaN(bText) ? bText : parseFloat(bText);
+                }
+    
+                if (direction === 'asc') {
+                    return aValue > bValue ? 1 : -1;
+                } else {
+                    return aValue < bValue ? 1 : -1;
+                }
+            });
+    
+            // Clear the current tbody and append sorted rows
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+    
+            // Update current sort column and order
+            currentSortColumn = columnIndex;
+            currentSortOrder = direction;
+    
+            // Update the arrows
+            updateArrows();
+        }
+    
+        function updateArrows() {
+            // Clear all arrows
+            for (let i = 0; i < 4; i++) {
+                const arrow = document.getElementById(`arrow-${i}`);
+                // Reset arrows to default state
+                arrow.innerHTML = '▲▼'; // Reset arrows to default for all columns
+                arrow.classList.remove('active'); // Remove active class
+            }
+    
+            // Set the appropriate arrow for the current sorted column and direction
+            if (currentSortColumn !== -1) {
+                const arrow = document.getElementById(`arrow-${currentSortColumn}`);
+                arrow.innerHTML = currentSortOrder === 'asc' ? '▲' : '▼'; // Show up or down arrow
+                arrow.classList.add('active'); // Add active class
+            }
+        }
+    </script>
+    
+    <style>
+        .sort-arrow {
+            color: gray; /* Default arrow color */
+            margin-left: 5px; /* Space between text and arrow */
+        }
+    
+        .sort-arrow.active {
+            color: black; /* Change color when active */
+            font-weight: bold; /* Make the arrow bold */
+        }
+    </style>
+    
     <br> <br>
     <nav>
         <div class="pagination">

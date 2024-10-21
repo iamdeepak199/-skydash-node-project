@@ -375,26 +375,26 @@
                   <h4 class="card-title">Royalty Achievers</h4>
                   <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
                     <div class="table-responsive" style="min-width: 1200px;">
-                      <table class="table table-hover" style="width: 100%;">
+                      <table class="table table-hover" style="width: 100%;" id="rankPayoutTable">
                         <thead>
-                          <tr>
-                            <th>Sr</th>
-                            <th>User ID</th>
-                            <th>User Name</th>
-                            <th>Royalty Name</th>
-                          </tr>
+                            <tr>
+                                <th onclick="sortTable(0)">Sr <span id="arrow-0" class="sort-arrow">▲▼</span></th>
+                                <th onclick="sortTable(1)">User ID <span id="arrow-1" class="sort-arrow">▲▼</span></th>
+                                <th onclick="sortTable(2)">User Name <span id="arrow-2" class="sort-arrow">▲▼</span></th>
+                                <th onclick="sortTable(3)">Royalty Name <span id="arrow-3" class="sort-arrow">▲▼</span></th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <% fake_activate.forEach(function(log) { %>  <!-- Use fake_activate here -->
-                            <tr id="row-<%= log.id %>">
-                                <td><%= log.id %></td>
-                                <td data-field-name="user_id"><%= log.user_id %></td>
-                                <td data-field-name="status"><%= log.status %></td>
-                                <td><%= log.created_date %></td>
-                            </tr>
-                          <% }); %>
-                      </tbody>
-                      </table>
+                            <% rank_payout.forEach(function(log) { %>
+                                <tr id="row-<%= log.id %>">
+                                    <td><%= log.id %></td>
+                                    <td data-field-name="user_id"><%= log.user_id %></td>
+                                    <td data-field-name="user_name"><%= log.user_name %></td>
+                                    <td data-field-name="rank"><%= log.rank %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
                     </div>
                 </div>
                 
@@ -414,7 +414,7 @@
                 <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
             <% } %>
         </div>
-    
+    <br><br>
         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
 
         

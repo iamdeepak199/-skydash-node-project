@@ -5,15 +5,23 @@ const getDb = require('../config/database'); // Adjust the path if necessary
 // GET request for /Service_tax
 router.get('/Service_tax', async (req, res) => {
 
-    // Function to calculate taxes based on the state and amount
     function calculateTaxes(state, amount) {
+        // Check if the state is null or undefined
+        if (!state) {
+            return {
+                gst: '0.00',
+                igst: '0.00',
+                cgst: '0.00',
+            };
+        }
+    
         // Define the tax rates
         const GST_RATE = 0.18; // 18% GST
         const IGST_RATE = 0.18; // 18% IGST
         const CGST_RATE = 0.09; // 9% CGST (half of GST)
-
+    
         let gst, igst, cgst;
-
+    
         if (state.toLowerCase() === 'gujarat') {
             // If state is Gujarat, apply GST, IGST, and CGST
             gst = amount * GST_RATE;
@@ -25,13 +33,14 @@ router.get('/Service_tax', async (req, res) => {
             cgst = amount * CGST_RATE;
             igst = 0; // No IGST for other states
         }
-
+    
         return {
             gst: gst.toFixed(2),
             igst: igst.toFixed(2),
             cgst: cgst.toFixed(2),
         };
     }
+    
 
     try {
         let page = req.query.page ? parseInt(req.query.page) : 1;
