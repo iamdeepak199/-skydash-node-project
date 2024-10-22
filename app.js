@@ -26,6 +26,7 @@ const Withdrawal_Report = require('./routes/Withdrawal_Report');
 const Rental_Manager = require('./routes/Rental_Manager');
 const Resume_Rent = require('./routes/Resume_Rent');
 const Royalty_Achievers = require('./routes/Royalty_Achievers');
+//const generateSidebar = require('./utils/sidenavbar');
 
 const app = express();
 

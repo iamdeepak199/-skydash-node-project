@@ -49,8 +49,6 @@
             </div>
           </li>
         </ul>
-
-
       <ul class="nav ml-auto">
             <li class="nav-item">
   <a class="nav-link" href="/dashboard">
@@ -63,15 +61,15 @@
   </a>
 </li>
 
-
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
         </button>
       </div>
     </nav>
-    <!-- partial -->
+ 
+     <!-- partial:partials/_settings-panel.html -->
+      
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
@@ -88,156 +86,6 @@
             <div class="tiles dark"></div>
             <div class="tiles default"></div>
           </div>
-        </div>
-      </div>
-      <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close ti-close"></i>
-        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="setting-content">
-          <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
-            <div class="add-items d-flex px-3 mb-0">
-              <form class="form w-100">
-                <div class="form-group d-flex">
-                  <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
-                  <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
-                </div>
-              </form>
-            </div>
-            <div class="list-wrapper px-3">
-              <ul class="d-flex flex-column-reverse todo-list">
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Team review meeting at 3.00 PM
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Prepare for presentation
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox">
-                      Resolve all the low priority tickets due today
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li class="completed">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Schedule meeting for next week
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-                <li class="completed">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="checkbox" type="checkbox" checked>
-                      Project review
-                    </label>
-                  </div>
-                  <i class="remove ti-close"></i>
-                </li>
-              </ul>
-            </div>
-            <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
-            <div class="events pt-4 px-3">
-              <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 11 2018</span>
-              </div>
-              <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
-              <p class="text-gray mb-0">The total number of sessions</p>
-            </div>
-            <div class="events pt-4 px-3">
-              <div class="wrapper d-flex mb-2">
-                <i class="ti-control-record text-primary mr-2"></i>
-                <span>Feb 7 2018</span>
-              </div>
-              <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-              <p class="text-gray mb-0 ">Call Sarah Graves</p>
-            </div>
-          </div>
-          <!-- To do section tab ends -->
-          <div class="tab-pane fade" id="chats-section" role="tabpanel" aria-labelledby="chats-section">
-            <div class="d-flex align-items-center justify-content-between border-bottom">
-              <p class="settings-heading border-top-0 mb-3 pl-3 pt-0 border-bottom-0 pb-0">Friends</p>
-              <small class="settings-heading border-top-0 mb-3 pt-0 border-bottom-0 pb-0 pr-3 font-weight-normal">See All</small>
-            </div>
-            <ul class="chat-list">
-              <li class="list active">
-                <div class="profile"><img src="images/faces/face1.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Thomas Douglas</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">19 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face2.jpg" alt="image"><span class="offline"></span></div>
-                <div class="info">
-                  <div class="wrapper d-flex">
-                    <p>Catherine</p>
-                  </div>
-                  <p>Away</p>
-                </div>
-                <div class="badge badge-success badge-pill my-auto mx-2">4</div>
-                <small class="text-muted my-auto">23 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face3.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Daniel Russell</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">14 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face4.jpg" alt="image"><span class="offline"></span></div>
-                <div class="info">
-                  <p>James Richardson</p>
-                  <p>Away</p>
-                </div>
-                <small class="text-muted my-auto">2 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face5.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Madeline Kennedy</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">5 min</small>
-              </li>
-              <li class="list">
-                <div class="profile"><img src="images/faces/face6.jpg" alt="image"><span class="online"></span></div>
-                <div class="info">
-                  <p>Sarah Graves</p>
-                  <p>Available</p>
-                </div>
-                <small class="text-muted my-auto">47 min</small>
-              </li>
-            </ul>
-          </div>
-          <!-- chat tab ends -->
         </div>
       </div>
       <!-- partial -->
@@ -354,7 +202,7 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="./Add_popup">
+      <a class="nav-link" href="./popup_news">
         <i class="icon-paper menu-icon"></i>
         <span class="menu-title">Add Popup/News</span>
       </a>
@@ -375,21 +223,21 @@
             <h4 class="card-title">CA Formate For Bill Rent Service Tax</h4>
             <div class="scrollable-table" style="overflow-x: auto; width: 100%;">
               <div class="table-responsive" style="min-width: 1200px;">
-                <table class="table table-hover" style="width: 100%;">
+                <table id="rankPayoutTable" class="table table-hover" style="width: 100%;">
                   <thead>
                           <tr>
-                            <th>Date</th>
-                            <th>User ID</th>
-                            <th>User Name</th>
-                            <th>Total Space</th>
-                            <th>Invoice Number</th>
-                            <th>Party Address</th>
-                            <th>PAN Number</th>
-                            <th>Invoice Value</th>
-                            <th>Taxable Value</th>
-                            <th>IGST</th>
-                            <th>CGST</th>
-                            <th>SGST</th>
+                            <th onclick="sortTable(0)">Date <span id="arrow-0" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(1)">User ID <span id="arrow-1" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(2)">User Name<span id="arrow-2" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(3)">Total Space<span id="arrow-3" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(4)">Invoice Number<span id="arrow-4" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(5)">Party Address<span id="arrow-5" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(6)">PAN Number<span id="arrow-6" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(7)">Invoice Value<span id="arrow-7" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(8)">Taxble Value<span id="arrow-8" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(9)">IGST<span id="arrow-9" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(10)">CGST<span id="arrow-10" class="sort-arrow">▲▼</span></th>
+                            <th onclick="sortTable(11)">SGST<span id="arrow-11" class="sort-arrow">▲▼</span></th>
                           </tr>
                           <tbody>
                             <% user.forEach(function(log) { %> 
@@ -416,68 +264,169 @@
                     
         </div>
         <br> <br>
-        <nav>
-            <div class="pagination">
-                <% if (hasPrevPage) { %>
-                    <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
-                <% } %>
-                
-            <!-- Display current page and total number of pages -->
-        <span>Page <%= currentPage %> of <%= totalPages %></span>
+        <script>
+
+          // Search functionality for filtering table rows
+    document.getElementById("navbar-search-input").addEventListener("keyup", function () {
+     searchTable();
+    });
     
-                <% if (hasNextPage) { %>
-                    <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
-                <% } %>
-            </div>
-    <br><br>    
-
-
+    // Function to search the table
+    function searchTable() {
+     const input = document.getElementById("navbar-search-input").value.toUpperCase();
+     const table = document.getElementById("rankPayoutTable");
+     const tr = table.getElementsByTagName("tr");
     
-        <!-------------------------------------------------------footer--------------------------------------------------------------- -->
-
-        
-        <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+     // Loop through all table rows, excluding the header
+     for (let i = 1; i < tr.length; i++) {
+       const tds = tr[i].getElementsByTagName("td");
+       let found = false;
+    
+       // Loop through each table cell in the row
+       for (let j = 0; j < tds.length; j++) {
+         if (tds[j]) {
+           if (tds[j].innerText.toUpperCase().indexOf(input) > -1) {
+             found = true; // If match is found
+             break;
+           }
+         }
+       }
+    
+       // Show or hide the row based on search result
+       if (found) {
+         tr[i].style.display = ""; // Show the row if found
+       } else {
+         tr[i].style.display = "none"; // Hide the row if not found
+       }
+     }
+    }
+    
+         let currentSortColumn = -1; // Track the currently sorted column
+         let currentSortOrder = 'asc'; // Track the sort order
+     
+         function sortTable(columnIndex) {
+             const table = document.getElementById("rankPayoutTable");
+             const tbody = table.getElementsByTagName("tbody")[0];
+             const rows = Array.from(tbody.getElementsByTagName("tr"));
+     
+             let direction = 'asc'; // Default direction
+     
+             // If the same column is clicked, toggle the sort order
+             if (currentSortColumn === columnIndex) {
+                 direction = currentSortOrder === 'asc' ? 'desc' : 'asc';
+             }
+     
+             // Sort rows based on the selected column
+             rows.sort((a, b) => {
+                 const aText = a.getElementsByTagName("td")[columnIndex].innerText;
+                 const bText = b.getElementsByTagName("td")[columnIndex].innerText;
+     
+                 let aValue, bValue;
+     
+                 // Handle date columns
+                 if (columnIndex === 3) { // Assuming "Created Date" is the 4th column
+                     aValue = new Date(aText);
+                     bValue = new Date(bText);
+                 } else {
+                     aValue = isNaN(aText) ? aText : parseFloat(aText);
+                     bValue = isNaN(bText) ? bText : parseFloat(bText);
+                 }
+     
+                 if (direction === 'asc') {
+                     return aValue > bValue ? 1 : -1;
+                 } else {
+                     return aValue < bValue ? 1 : -1;
+                 }
+             });
+     
+             // Clear the current tbody and append sorted rows
+             tbody.innerHTML = '';
+             rows.forEach(row => tbody.appendChild(row));
+     
+             // Update current sort column and order
+             currentSortColumn = columnIndex;
+             currentSortOrder = direction;
+     
+             // Update the arrows
+             updateArrows();
+         }
+     
+         function updateArrows() {
+             // Clear all arrows
+             for (let i = 0; i < 12; i++) {
+                 const arrow = document.getElementById(`arrow-${i}`);
+                 // Reset arrows to default state
+                 arrow.innerHTML = '▲▼'; // Reset arrows to default for all columns
+                 arrow.classList.remove('active'); // Remove active class
+             }
+     
+             // Set the appropriate arrow for the current sorted column and direction
+             if (currentSortColumn !== -1) {
+                 const arrow = document.getElementById(`arrow-${currentSortColumn}`);
+                 arrow.innerHTML = currentSortOrder === 'asc' ? '▲' : '▼'; // Show up or down arrow
+                 arrow.classList.add('active'); // Add active class
+             }
+         }
+     </script>
+     
+     <style>
+         .sort-arrow {
+             color: gray; /* Default arrow color */
+             margin-left: 5px; /* Space between text and arrow */
+         }
+     
+         .sort-arrow.active {
+             color: black; /* Change color when active */
+             font-weight: bold; /* Make the arrow bold */
+         }
+     </style>
+     
+     <br> <br>
+     <nav>
+         <div class="pagination">
+             <% if (hasPrevPage) { %>
+                 <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;" onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+             <% } %>
+             
+         <!-- Display current page and total number of pages -->
+     <span>Page <%= currentPage %> of <%= totalPages %></span>
+    
+             <% if (hasNextPage) { %>
+                 <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;" onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+             <% } %>
+         </div>
+         <br><br>
+    
+         <!-------------------------------------------------------footer--------------------------------------------------------------- -->
+    
+         
+         <footer class="footer">
+             <div class="d-sm-flex justify-content-center justify-content-sm-between">
+               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021. admin template. All rights reserved.</span>
+               <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+             </div>
+             <div class="d-sm-flex justify-content-center justify-content-sm-between">
+               <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by</span> 
+             </div>
+           </footer> 
+           
+           <!-------------------------------------------------------footer--------------------------------------------------------------- -->
+    
             </div>
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by <a href="https://www.themewagon.com/" target="_blank">Themewagon</a></span> 
-            </div>
-          </footer> 
-          <!-------------------------------------------------------footer--------------------------------------------------------------- -->
-  
-  
-  
+          </div>   
         </div>
-        <!-- main-panel ends -->
-      </div>   
-      <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
-  
-    <!-- plugins:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="vendors/chart.js/Chart.min.js"></script>
-    <script src="vendors/datatables.net/jquery.dataTables.js"></script>
-    <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-    <script src="js/dataTables.select.min.js"></script>
-  
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/hoverable-collapse.js"></script>
-    <script src="js/template.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/todolist.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="js/dashboard.js"></script>
-    <script src="js/Chart.roundedBarCharts.js"></script>
-    <!-- End custom js for this page-->
-  </body>
-  
-  </html>
+        <script src="vendors/js/vendor.bundle.base.js"></script>
+        <script src="vendors/chart.js/Chart.min.js"></script>
+        <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+        <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+        <script src="js/dataTables.select.min.js"></script>
+        <script src="js/off-canvas.js"></script>
+        <script src="js/hoverable-collapse.js"></script>
+        <script src="js/template.js"></script>
+        <script src="js/settings.js"></script>
+        <script src="js/todolist.js"></script>
+        <script src="js/dashboard.js"></script>
+        <script src="js/Chart.roundedBarCharts.js"></script>
+      </body>
+      </html>
   
