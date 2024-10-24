@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const getDb = require('../config/database'); 
+const getDb = require('../config/database');
 
 /*<--------------------------------------------------->Get Function For Fetching Row Data from DB<----------------------------------------------->*/
 
@@ -9,7 +9,7 @@ router.get('/userdata', async (req, res) => {
         let page = req.query.page ? parseInt(req.query.page) : 1;
         const limit = 10;
         const offset = (page - 1) * limit;
-        const db = getDb(); 
+        const db = getDb();
 
         if (!db) {
             console.error('Database connection is not defined.');
@@ -43,7 +43,7 @@ router.get('/userdata', async (req, res) => {
 router.post('/update-row', async (req, res) => {
     const updatedData = req.body;
     const db = getDb();
-    
+
     if (!db) {
         console.error('Database connection is not defined.');
         return res.status(500).send('Database connection is not available.');
@@ -94,7 +94,7 @@ router.get('/delete-user', (req, res) => {
             console.error('Error deleting user:', err);
             return res.status(500).send('Failed to delete user');
         }
-        res.redirect('/userdata');  
+        res.redirect('/userdata');
     });
 });
 

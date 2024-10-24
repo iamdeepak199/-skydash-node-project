@@ -38,7 +38,7 @@ router.get('/Withdrawal_Request', async (req, res) => {
 
         // Execute the query without passing parameters for limit and offset
         const [results] = await db.query(query);
-        
+
         // Log the results
         //console.log('Query Results:', JSON.stringify(results, null, 2)); // Log the results for debugging
 

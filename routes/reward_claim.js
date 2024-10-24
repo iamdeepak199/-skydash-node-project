@@ -38,6 +38,5 @@ router.get('/reward_claim', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-  
-  module.exports = router; // Don't forget to export the router
-  
+
+module.exports = router; // Don't forget to export the router

@@ -1,4 +1,4 @@
-const express = require('express'); 
+const express = require('express');
 const router = express.Router();
 const getDb = require('../config/database'); // Adjust the path if necessary
 

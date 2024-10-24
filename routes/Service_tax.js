@@ -14,14 +14,14 @@ router.get('/Service_tax', async (req, res) => {
                 cgst: '0.00',
             };
         }
-    
+
         // Define the tax rates
         const GST_RATE = 0.18; // 18% GST
         const IGST_RATE = 0.18; // 18% IGST
         const CGST_RATE = 0.09; // 9% CGST (half of GST)
-    
+
         let gst, igst, cgst;
-    
+
         if (state.toLowerCase() === 'gujarat') {
             // If state is Gujarat, apply GST, IGST, and CGST
             gst = amount * GST_RATE;
@@ -33,14 +33,14 @@ router.get('/Service_tax', async (req, res) => {
             cgst = amount * CGST_RATE;
             igst = 0; // No IGST for other states
         }
-    
+
         return {
             gst: gst.toFixed(2),
             igst: igst.toFixed(2),
             cgst: cgst.toFixed(2),
         };
     }
-    
+
 
     try {
         let page = req.query.page ? parseInt(req.query.page) : 1;

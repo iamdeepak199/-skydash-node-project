@@ -29,8 +29,8 @@ router.get('/Royalty_Achievers', async (req, res) => {
             LIMIT ? 
             OFFSET ?;
         `, [limit, offset]);
-        
-        
+
+
 
         // Query to get the total count of records
         const [countResult] = await db.query('SELECT COUNT(*) AS count FROM rank_payout');
@@ -50,6 +50,5 @@ router.get('/Royalty_Achievers', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-  
-  module.exports = router; // Don't forget to export the router
-  
+
+module.exports = router; // Don't forget to export the router

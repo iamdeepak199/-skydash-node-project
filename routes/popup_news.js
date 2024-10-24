@@ -13,7 +13,7 @@ router.post('/popup_settings', upload.single('content'), async (req, res) => {
     const content = contentType === 'image' ? req.file.path : req.body.content; // Handle file or text
 
     const query = 'INSERT INTO popup_settings (enabled, content_type, content) VALUES (?, ?, ?)';
-    
+
     try {
         const db = getDb(); // Get the database connection
         await db.query(query, [enabled, contentType, content]); // Use await for the query

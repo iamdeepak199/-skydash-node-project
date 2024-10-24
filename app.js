@@ -1,11 +1,11 @@
-const express = require('express');       
-const mysql = require('mysql2/promise');  
-const routes = require('./routes/routes'); 
-const cookieParser = require('cookie-parser'); 
-const path = require('path');    
-const chalk = require('chalk');   
-const session = require('express-session'); 
-const resetPasswordRoute = require('./routes/resetpassword'); 
+const express = require('express');
+const mysql = require('mysql2/promise');
+const routes = require('./routes/routes');
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const chalk = require('chalk');
+const session = require('express-session');
+const resetPasswordRoute = require('./routes/resetpassword');
 const userdata = require('./routes/userdata');
 const fake_activate = require('./routes/fake_activate');
 const users_activate = require('./routes/users_activate');
@@ -15,7 +15,7 @@ const transaction_details = require('./routes/transaction_details');
 const total_business_show = require('./routes/total_business_show');
 const Purchase_setup = require('./routes/Purchase_setup');
 const Service_tax = require('./routes/Service_tax');
-const popup_news = require('./routes/popup_news'); 
+const popup_news = require('./routes/popup_news');
 const Level_Details = require('./routes/Level_Details');
 const Rewards_check = require('./routes/Rewards_Check');
 const consultation_income = require('./routes/consultation_income');
@@ -34,15 +34,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Middleware to parse incoming request bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.set('view engine', 'ejs');   
-app.use(cookieParser());   
+app.set('view engine', 'ejs');
+app.use(cookieParser());
 
 // Configure the session middleware
 app.use(session({
-  secret: 'buralareskidenhepdutluktu', 
+  secret: 'buralareskidenhepdutluktu',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 
 // Static file serving for uploads
@@ -50,8 +50,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 /*---------------------------------------------------------------------->All Routes<------------------------------------------------------------*/
 
-app.use('/', routes); 
-app.use('/', resetPasswordRoute); 
+app.use('/', routes);
+app.use('/', resetPasswordRoute);
 app.use('/', userdata);
 app.use('/', fake_activate);
 app.use('/', users_activate);

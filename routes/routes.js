@@ -111,13 +111,13 @@ router.post('/login', async (req, res) => {
 router.get('/dashboard', authenticateToken, async (req, res) => {
   const db = getDb(); // Get the database connection
   try {
-      // Fetch admin details
-      const [adminRows] = await db.execute('SELECT id, username, email FROM admins WHERE id = ?', [req.admin.id]);
-      const admin = adminRows[0];
+    // Fetch admin details
+    const [adminRows] = await db.execute('SELECT id, username, email FROM admins WHERE id = ?', [req.admin.id]);
+    const admin = adminRows[0];
 
-      if (!admin) {
-          return res.status(404).send('Admin not found');
-      }
+    if (!admin) {
+      return res.status(404).send('Admin not found');
+    }
 
 
     // Fetch total paid amount for rank 'sales'
@@ -133,15 +133,15 @@ router.get('/dashboard', authenticateToken, async (req, res) => {
     const totalPaidAmountZonal = Number(zonalAmountRows[0]?.totalPaidAmount) || 0; // Convert to number
 
 
-      // Fetch the total sum of particles from users_activate table
-      const [particleRows] = await db.execute('SELECT SUM(particle) AS totalParticle FROM users_activate');
-      const totalParticle = Number(particleRows[0]?.totalParticle) || 0; // Convert to number and default to 0 if no results 
+    // Fetch the total sum of particles from users_activate table
+    const [particleRows] = await db.execute('SELECT SUM(particle) AS totalParticle FROM users_activate');
+    const totalParticle = Number(particleRows[0]?.totalParticle) || 0; // Convert to number and default to 0 if no results 
 
-      // Render the dashboard view with admin, totalPaidAmount, and totalParticle data
-      res.render('dashboard', { admin, totalPaidAmount, totalParticle,totalPaidAmountBranch,totalPaidAmountZonal }); // Ensure totalParticle is passed here
+    // Render the dashboard view with admin, totalPaidAmount, and totalParticle data
+    res.render('dashboard', { admin, totalPaidAmount, totalParticle, totalPaidAmountBranch, totalPaidAmountZonal }); // Ensure totalParticle is passed here
   } catch (error) {
-      console.error('Error fetching data:', error);
-      res.status(500).send('Server error');
+    console.error('Error fetching data:', error);
+    res.status(500).send('Server error');
   }
 });
 
