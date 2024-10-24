@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const getDb = require('../config/database'); // Adjust the path if necessary
+const getDb = require('../config/database'); 
 
-// GET request for /userdata
+/*<--------------------------------------------------->Get Function For Fetching Row Data from DB<----------------------------------------------->*/
+
 router.get('/userdata', async (req, res) => {
     try {
         let page = req.query.page ? parseInt(req.query.page) : 1;
         const limit = 10;
         const offset = (page - 1) * limit;
+        const db = getDb(); 
 
-        const db = getDb(); // Call the function to get the db connection
-
-        // Check if db is defined
         if (!db) {
             console.error('Database connection is not defined.');
             return res.status(500).send('Database connection is not available.');
@@ -39,27 +38,24 @@ router.get('/userdata', async (req, res) => {
     }
 });
 
-// POST request for updating a row
+/*<------------------------------------------------------->Post Function For Update Row<--------------------------------------------------------->*/
+
 router.post('/update-row', async (req, res) => {
     const updatedData = req.body;
-
-    // Call the function to get the db connection
     const db = getDb();
-
-    // Check if db is defined
+    
     if (!db) {
         console.error('Database connection is not defined.');
         return res.status(500).send('Database connection is not available.');
     }
 
-    // Example query, customize it based on your table structure
+    // Update Query 
     const sql = `
         UPDATE consultation_log 
         SET user_id = ?, get_income_from_id = ?, income = ?, package = ?, level = ?, status = ?, updated_date = NOW()
         WHERE id = ?
     `;
 
-    // Example: Using MySQL connection, make sure to order the values correctly
     try {
         const [result] = await db.query(sql, [
             updatedData.user_id,
@@ -82,4 +78,24 @@ router.post('/update-row', async (req, res) => {
     }
 });
 
-module.exports = router; // Don't forget to export the router
+/*<------------------------------------------------------>Delete Function For Delete Row<--------------------------------------------------------->*/
+
+router.get('/delete-user', (req, res) => {
+    const userId = req.query.id;
+    const db = getDb();
+
+    if (!userId) {
+        return res.status(400).send('User ID is required');
+    }
+    const deleteQuery = 'DELETE FROM consultation_log WHERE id = ?';  //table name IN DB -> consultation_log 
+
+    db.query(deleteQuery, [userId], (err, result) => {
+        if (err) {
+            console.error('Error deleting user:', err);
+            return res.status(500).send('Failed to delete user');
+        }
+        res.redirect('/userdata');  
+    });
+});
+
+module.exports = router; 

@@ -1,0 +1,17 @@
+<!---------------------------------------------------------------SHOW PAGINATION BUTTONS-------------------------------------------------------->
+<br> <br>
+<div class="pagination">
+    <% if (hasPrevPage) { %>
+        <button type="button" class="btn btn-danger btn-sm" style="margin-right: 10px;"
+            onclick="window.location.href='?page=<%= currentPage - 1 %>'">Previous</button>
+        <% } %>
+
+            <!-- Display current page and total number of pages -->
+            <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+            <% if (hasNextPage) { %>
+                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px;"
+                    onclick="window.location.href='?page=<%= currentPage + 1 %>'">Next</button>
+                <% } %>
+</div>
+<br> <br>

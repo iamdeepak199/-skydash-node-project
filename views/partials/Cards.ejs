@@ -1,0 +1,165 @@
+<!-------------------------------------------------------------------CARDS DATA ------------------------------------------------------------------>
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="row">
+                    <div class="col-12 col-xl-8 mb-4 mb-xl-0">
+                        <br>
+                        <h3 class="font-weight-bold">Welcome To Admin Page <% if (admin) { %>
+
+                                <%= admin.name %>
+                                    <br><br>
+                                    <p>Email: <%= admin.email %>
+                                    </p>
+                                    <!-- Add more user information as needed -->
+                                    <% } else { %>
+                                        <p>Access denied. Please <a href="/login">login</a> to view this
+                                            page.</p>
+                                        <% } %>
+                        </h3>
+                        <h6 class="font-weight-normal mb-0"><span class="text-primary"></span></h6>
+                    </div>
+                    <br><br><br><br><br><br><br>
+
+                    <!-------------------------------------------------------------------Cards------------------------------------------------------------------------>
+
+                    <div class="col-md-12 grid-margin transparent">
+                        <div class="row">
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-inr" aria-hidden="true"
+                                                        style="font-size: 25px;"></i>
+                                                    <p>Total Particle Sold</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black">
+                                                    <%= typeof totalParticle==='number' ? totalParticle.toFixed(2)
+                                                        : '0.00' %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-inr" aria-hidden="true"
+                                                        style="font-size: 25px;"></i>
+                                                    <p>Total Paid Amount</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black">
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-inr" aria-hidden="true"
+                                                        style="font-size: 25px;"></i>
+                                                    <p>Balance Amount</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-star" aria-hidden="true"
+                                                        style="font-size: 25px; color: silver;"></i>
+                                                    <p>Sales Manager</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black">
+                                                    <%= typeof totalPaidAmount !=='undefined' ?
+                                                        totalPaidAmount.toFixed(2) : '0.00' %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-trophy" aria-hidden="true"
+                                                        style="font-size: 25px;  color: gold;"></i>
+                                                    <p>Branch Manager</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black">
+                                                    <%= typeof totalPaidAmountBranch==='number' ?
+                                                        totalPaidAmountBranch.toFixed(2) : '0.00' %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-database" aria-hidden="true"
+                                                        style="font-size: 25px; color: darkblue;"></i>
+                                                    <p>Zonal Manage</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black">
+                                                    <%= typeof totalPaidAmountZonal==='number' ?
+                                                        totalPaidAmountZonal.toFixed(2) : '0.00' %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 stretch-card transparent">
+                                <div class="card card-tale">
+                                    <div class="card-body">
+                                        <div class="grid">
+                                            <div class="grid-body text-black">
+                                                <div class="d-flex justify-content-between">
+                                                    <i class="fa fa-database" aria-hidden="true"
+                                                        style="font-size: 25px; color: darkblue;"></i>
+                                                    <p>Regional Manage</p>
+                                                </div>
+                                                <br>
+                                                <p class="text-black"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
